@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DustMother.Core;
 using UnSave;
 using UnSave.Serialization;
@@ -10,8 +11,14 @@ namespace DustMother
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
+            var app = Startup.GetApp();
+            // app.SetDefaultCommand<CampaignCommand>();
+            return await app.RunAsync(args);
+        }
+
+        static void RunSimple(string[] args) {
             var structSerializers = new List<IUnrealStructSerializer> {new UEGuidStructProperty()};
             var builder = new SaveSerializerBuilder();
             var serializer = builder.AddDefaultSerializers().AddCollectionSerializer(new UEStructSerializer(structSerializers)).Build();

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
     <PackageReference Include="UnSave" Version="0.0.0-preview.0.7" />
   </ItemGroup>
 

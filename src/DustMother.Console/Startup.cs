@@ -14,6 +14,8 @@ namespace DustMother
                 c.PropagateExceptions();
                 c.SetApplicationName("dm");
                 c.AddCommand<CampaignCommand>("campaign");
+                c.AddCommand<ConquestCommand>("conquest");
+                c.AddCommand<StatisticsCommand>("statistics");
             });
             return app;
         }

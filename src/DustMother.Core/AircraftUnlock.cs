@@ -17,9 +17,10 @@ namespace DustMother.Core
                 Purchased = purchaseProp?.Value;
             }
         }
-        public string Id {get;}
-        public bool? Unlocked {get;}
-        public bool? Available {get;}
-        public bool? Purchased {get;}
+        protected AircraftUnlock() {}
+        public string Id {get;protected set;}
+        public bool? Unlocked {get;protected set;}
+        public bool? Available {get; protected set;}
+        public bool? Purchased {get; protected set;}
     }
 }

@@ -60,5 +60,13 @@ namespace DustMother
             console.Render(new Rule("Aircraft") { Alignment = Justify.Left });
             console.Render(aircraftTable);
         }
+
+        public static string ToMark(this bool? value, bool useSymbol = true) {
+            if (useSymbol) {
+            return value.HasValue ? value.Value ? "[green]✔[/]" : "❌" : "❓";
+            } else {
+                return Emoji.Replace(value.HasValue ? value.Value ? ":check_mark" : "cross_mark" : ":question_mark:"); 
+            }
+        }
     }
 }

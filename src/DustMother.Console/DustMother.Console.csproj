@@ -21,6 +21,8 @@
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <AssemblyName>dm</AssemblyName>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <TrimMode>Link</TrimMode>
   </PropertyGroup>
 
 

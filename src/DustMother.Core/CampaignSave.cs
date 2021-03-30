@@ -5,11 +5,10 @@ using UnSave.Types;
 
 namespace DustMother.Core
 {
-    public class CampaignSave
+    public class CampaignSave : WingmanSave
     {
-        public CampaignSave(GvasSaveData saveData)
+        public CampaignSave(GvasSaveData saveData) : base(saveData)
         {
-            RawSaveData = saveData;
             Credits = saveData.Properties.FindProperty<UEIntProperty>(p => p.Name == "CampaignCredits")?.Value;
             CampaignActive = saveData.Properties.FindProperty<UEBoolProperty>(p => p.Name == "HasACampaign")?.Value;
             CampaignCompleted = saveData.Properties.FindProperty<UEBoolProperty>(p => p.Name == "HasFinishedCampaignOnce")?.Value;
@@ -20,8 +19,7 @@ namespace DustMother.Core
             };
             UnlockedAircraft = saveData.Properties
                 .FindProperty<UEArrayProperty>(p => p.Name == "CD_AircraftUnlock")?
-                .Items
-                .Cast<UEStructProperty>()
+                .Items<UEStructProperty>()
                 .Select(gs => new AircraftUnlock(gs))
                 .ToList()
                 .AsReadOnly();
@@ -33,7 +31,6 @@ namespace DustMother.Core
         public string FurthestMission {get; private set;}
         public CampaignDetails? CurrentCampaign {get; private set;}
         public ReadOnlyCollection<AircraftUnlock> UnlockedAircraft {get; private set;}
-        private GvasSaveData RawSaveData {get; set;}
         
     }
 }

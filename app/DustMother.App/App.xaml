@@ -1,0 +1,25 @@
+﻿<Application
+    x:Class="DustMother.App.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:local="using:DustMother.App"
+    xmlns:cv="using:DustMother.App.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <muxc:XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="Styles.xaml"/>
+                <!--<ResourceDictionary Source="/Styles/Styles.xaml"/>-->
+            </ResourceDictionary.MergedDictionaries>
+            <cv:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter" />
+            <cv:DifficultyConverter x:Key="DifficultyConverter" />
+            <cv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <cv:CompletedIconConverter x:Key="CompletedIconConverter" />
+            <cv:BooleanToTextConverter x:Key="BooleanToText" />
+            <cv:AircraftNameConverter x:Key="AircraftName" />
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

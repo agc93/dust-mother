@@ -4,7 +4,7 @@ using UnSave.Types;
 namespace DustMother.Core
 {
     public class AircraftUnlock {
-        public AircraftUnlock(UEStructProperty unlockItem)
+        internal AircraftUnlock(UEStructProperty unlockItem)
         {
             if (unlockItem is UEGenericStructProperty structProp) {
                 var idProp = structProp.Properties.FirstOrDefault(p => p.Name.StartsWith("ID_")) as UEStringProperty;

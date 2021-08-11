@@ -15,6 +15,7 @@ namespace DustMother.Core
             AlertLevel = rawSaveData.FindProperty<UEIntProperty>("AlertLevel")?.Value;
             AlertLevelProgress = rawSaveData.FindProperty<UEFloatProperty>("AlertProgress")?.Value;
             Prestige = rawSaveData.FindProperty<UEIntProperty>("PersistentCash")?.Value;
+            CordiumEngines = rawSaveData.FindProperty<UEIntProperty>("ThermalEngines")?.Value;
             Regions = rawSaveData.Properties
                 .FindProperty<UEArrayProperty>("CQ_RegionSaves")
                 .Items
@@ -47,6 +48,15 @@ namespace DustMother.Core
                     Allies = new ReadOnlyDictionary<string, int>(alliesDict);
                 }
             }
+            var modifiersList = rawSaveData.FindProperty<UEGenericStructProperty>("ModifiersList");
+            if (modifiersList != null && modifiersList.Properties.Count > 0)
+            {
+                ModifiersList = new Modifiers
+                {
+                    Difficulty = modifiersList.Properties.FindProperty<UEIntProperty>(p => p.Name.StartsWith("Difficulty"))?.Value,
+                    AlertModifier = modifiersList.Properties.FindProperty<UEFloatProperty>(p => p.Name.StartsWith("AlertMod"))?.Value
+                };
+            }
             CurrentLoadout = new Loadout {
                 AircraftName = playerData
                     .Properties
@@ -74,16 +84,19 @@ namespace DustMother.Core
         public int? AlertLevel {get;set;}
         public float? AlertLevelProgress {get;set;}
         public int? Prestige {get;set;}
+        public int? CordiumEngines { get; set; }
         public ReadOnlyDictionary<string, int> Allies {get;set;}
+        public Modifiers ModifiersList { get;  }
 
     }
 
     public class Loadout {
-        public string AircraftName {get;init;}
-        public List<string> Weapons {get;init;}
+        public string AircraftName { get; internal set; }
+        public List<string> Weapons {get;internal set;}
     }
 
-    public class Modifier {
-
+    public class Modifiers {
+        public int? Difficulty { get; set; }
+        public float? AlertModifier { get; set; }
     }
 }

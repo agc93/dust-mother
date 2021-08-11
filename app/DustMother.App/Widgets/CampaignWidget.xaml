@@ -1,0 +1,77 @@
+﻿<local:CampaignWidgetPage
+    x:Class="DustMother.App.Widgets.CampaignWidget"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DustMother.App.Widgets"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:Height="350"
+    d:Width="500">
+    <local:CampaignWidgetPage.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource DetailsHeader}" x:Key="DataHeader">
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+    </local:CampaignWidgetPage.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <!--<SymbolIcon Symbol="{x:Bind ViewModel.FileReadable, Mode=OneWay, Converter={StaticResource CompletedIconConverter}}" />
+        <TextBlock Text="SaveData Loaded" Visibility="{x:Bind ViewModel.SaveData, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}" />-->
+        <Grid Grid.Row="0" Style="{StaticResource MinDetailsGrid}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <!--<TextBlock Style="{StaticResource DetailsHeader}" FontSize="40" Text="Basics" Grid.Row="0" Grid.ColumnSpan="2" />-->
+            <TextBlock Style="{StaticResource DetailsHeader}" Text="Credits" Grid.Row="1" />
+            <TextBlock Style="{StaticResource DataHeader}" Text="{x:Bind ViewModel.SaveData.Credits, Mode=OneWay}" d:Text="150000" Grid.Row="1" Grid.Column="1" />
+            <TextBlock Style="{StaticResource DetailsHeader}" Text="Furthest Mission" Grid.Row="2" Grid.Column="0" >
+                <ToolTipService.ToolTip>
+                    <ToolTip Content="Remember that this will be the game's internal mission name, not what you see in-game!" VerticalOffset="-20" />
+                </ToolTipService.ToolTip>
+            </TextBlock>
+            <TextBlock Style="{StaticResource DataHeader}" Text="{x:Bind ViewModel.SaveData.FurthestMission, Mode=OneWay}" d:Text="mission_22" Grid.Row="2" Grid.Column="1" >
+                <ToolTipService.ToolTip>
+                    <ToolTip Content="Remember that this will be the game's internal mission name, not what you see in-game!" VerticalOffset="-20" />
+                </ToolTipService.ToolTip>
+            </TextBlock>
+        </Grid>
+        <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="4" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="2" Style="{StaticResource MinDetailsGrid}" Visibility="{x:Bind ViewModel.SaveData.CurrentCampaign.CurrentMission, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <!--<TextBlock Style="{StaticResource DetailsHeader}" FontSize="40" Text="Current Campaign" Grid.Row="0" Grid.ColumnSpan="2" />-->
+            <TextBlock Style="{StaticResource DetailsHeader}" Text="Current Mission" Grid.Row="1" >
+                <ToolTipService.ToolTip>
+                    <ToolTip Content="Remember that this will be the game's internal mission name, not what you see in-game!" VerticalOffset="-20" />
+                </ToolTipService.ToolTip>
+            </TextBlock>
+            <TextBlock Style="{StaticResource DataHeader}" Text="{x:Bind ViewModel.SaveData.CurrentCampaign.CurrentMission, Mode=OneWay}" d:Text="mission_12" Grid.Row="1" Grid.Column="1" >
+                <ToolTipService.ToolTip>
+                    <ToolTip Content="Remember that this will be the game's internal mission name, not what you see in-game!" VerticalOffset="-20" />
+                </ToolTipService.ToolTip>
+            </TextBlock>
+            <TextBlock Style="{StaticResource DetailsHeader}" Text="Difficulty" Grid.Row="2" Grid.Column="0" />
+            <TextBlock Style="{StaticResource DataHeader}" Text="{x:Bind ViewModel.SaveData.CurrentCampaign.Difficulty, Mode=OneWay, Converter={StaticResource DifficultyConverter}}" d:Text="Normal" Grid.Row="2" Grid.Column="1" />
+        </Grid>
+        
+
+    </Grid>
+</local:CampaignWidgetPage>

@@ -1,0 +1,39 @@
+﻿<local:MainWidgetPage
+    x:Class="DustMother.App.Widgets.MainWidget"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DustMother.App.Widgets"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="using:DustMother.App.Pages"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:cc="using:DustMother.App.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:th="using:DustMother.App.TypeHelpers"
+    mc:Ignorable="d"
+    d:Height="400"
+    d:Width="500"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <cc:FileAccessWarning Visibility="{x:Bind FileReadable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reverse}" Grid.RowSpan="2" Height="auto" Width="auto" />
+        <muxc:NavigationView x:Name="mainWidgetNav"
+                            PaneDisplayMode="Top"
+                            SelectionChanged="NavigationView_SelectionChanged"
+                             Visibility="{x:Bind FileReadable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            IsSettingsVisible="False">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Content="Statistics" Tag="StatisticsWidget" Icon="ContactInfo" x:Name="statsViewItem"  />
+                <muxc:NavigationViewItem Content="Campaign" Tag="CampaignWidget" Icon="Globe" x:Name="campaignViewItem"/>
+            </muxc:NavigationView.MenuItems>
+            <muxc:NavigationView.FooterMenuItems>
+                <muxc:NavigationViewItem Tag="Refresh" Icon="Refresh" >
+                    <muxc:NavigationViewItem.Content>
+                        <SymbolIcon Symbol="{x:Bind FileReadable, Mode=OneWay, Converter={StaticResource CompletedIconConverter}}" />
+                    </muxc:NavigationViewItem.Content>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.FooterMenuItems>
+            <Frame x:Name="contentFrame" />
+        </muxc:NavigationView>
+    </Grid>
+</local:MainWidgetPage>

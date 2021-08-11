@@ -1,0 +1,48 @@
+﻿<local:StatisticsWidgetPage
+    x:Class="DustMother.App.Widgets.StatisticsWidget"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DustMother.App.Widgets"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="using:DustMother.App.Pages"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:c="using:DustMother.App.Controls"
+    mc:Ignorable="d"
+    d:Height="350"
+    d:Width="500">
+
+    <Page.Resources>
+        <Style x:Key="StatisticHeader" TargetType="TextBlock" BasedOn="{StaticResource DetailsHeader}">
+            <Setter Property="FontSize" Value="36" />
+        </Style>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+        
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <muxc:InfoBar Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Height="auto" Severity="Informational" IsOpen="true" Title="Kill Counts" Message="Note that on account of how vessel kills are counted, total kills include just air and ground kills. Vessel kills are already factored in!" FontSize="30" />
+        <Grid Grid.Column="0" Grid.Row="1" x:Name="statsGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <c:StatisticCard ScaleFactor="0.75" Header="Air Kills" Value="{x:Bind ViewModel.SaveData.AircraftKills, Mode=OneWay}" Grid.Row="1" Grid.Column="0" />
+            <c:StatisticCard ScaleFactor="0.75" Header="Ground Kills" Value="{x:Bind ViewModel.SaveData.GroundTargetKills, Mode=OneWay}" Grid.Row="1" Grid.Column="1" />
+            <c:StatisticCard ScaleFactor="0.75" Header="Total Kills" Value="{x:Bind ViewModel.SaveData.TotalKills, Mode=OneWay}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
+        </Grid>
+    </Grid>
+</local:StatisticsWidgetPage>

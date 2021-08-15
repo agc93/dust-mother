@@ -16,6 +16,7 @@ namespace DustMother
                 c.AddCommand<CampaignCommand>("campaign");
                 c.AddCommand<ConquestCommand>("conquest");
                 c.AddCommand<StatisticsCommand>("statistics");
+                c.AddCommand<GameSettingsCommand>("settings");
             });
             return app;
         }

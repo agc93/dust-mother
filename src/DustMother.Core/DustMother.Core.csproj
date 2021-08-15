@@ -16,5 +16,16 @@
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>DustMother.Core</PackageId>
+    <Description>DustMother is a simple library for managing Project Wingman save files, powered by UnSave.</Description>
+    <Authors>agc93</Authors>
+    <Copyright>© Alistair Chapman 2021</Copyright>
+    <PackageTags>project-wingman;modding;</PackageTags>
+    <RepositoryUrl>https://github.com/agc93/dust-mother</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/agc93/dust-mother</PackageProjectUrl>
+  </PropertyGroup>
 
 </Project>

@@ -1,0 +1,20 @@
+﻿<UserControl
+    Name="flyoutControl"
+    x:Class="DustMother.App.Controls.EditFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DustMother.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <muxc:Button  Margin="0" Padding="2">
+        <muxc:SymbolIcon Symbol="Edit" />
+        <muxc:Button.Flyout>
+            <Flyout>
+                <muxc:ContentPresenter Content="{x:Bind BodyContent}" />
+            </Flyout>
+        </muxc:Button.Flyout>
+    </muxc:Button>
+</UserControl>

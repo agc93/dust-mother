@@ -1,38 +1,40 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnSave;
+using UnSave.Extensions;
 using UnSave.Types;
 
 namespace DustMother.Core
 {
-    public class StatisticsSave : WingmanSave
+    public partial class StatisticsSave : WingmanSave
     {
         public StatisticsSave(GvasSaveData rawSaveData) : base(rawSaveData)
         {
-            AircraftKills = rawSaveData.FindProperty<UEIntProperty>("STAT_AirKill")?.Value;
-            GroundTargetKills = rawSaveData.FindProperty<UEIntProperty>("STAT_GroundKill")?.Value;
-            VesselKills = rawSaveData.FindProperty<UEIntProperty>("STAT_VesselKill")?.Value;
-            TotalKills = rawSaveData.FindProperty<UEIntProperty>("STAT_Kills")?.Value;
-            Missions = rawSaveData
-                .FindProperty<UEArrayProperty>("MissionList")
-                .Items<UEStructProperty>()
-                .Select(sp => new MissionCompletion(sp))
-                .ToList()
-                .AsReadOnly();
+            var missionList = rawSaveData.FindProperty<UEArrayProperty>("MissionList");
+            if (missionList != null)
+            {
+                Missions = missionList
+                    .Items<UEStructProperty>()
+                    .Select(sp => new MissionCompletion(sp))
+                    .ToList()
+                    .AsReadOnly();
+            }
         }
 
-        public int? AircraftKills {get;}
-        public int? GroundTargetKills {get;}
-        public int? VesselKills {get;}
-        /// <summary>
-        /// Unknown value.
-        /// </summary>
-        /// <remarks>
-        ///     Despite what you'd think, this value is not just the sum of the other kill stats. 
-        ///     No idea why.
-        /// </remarks>
-        /// <value></value>
-        public int? TotalKills {get;}
-        public ReadOnlyCollection<MissionCompletion> Missions {get;}
+        [ValueProperty(ValuePropertyName = "AircraftKills")]
+        private UEIntProperty AirKill => RawSaveData.FindProperty<UEIntProperty>("STAT_AirKill");
+
+        [ValueProperty(ValuePropertyName = "GroundTargetKills")]
+        private UEIntProperty GroundKill => RawSaveData.FindProperty<UEIntProperty>("STAT_GroundKill");
+
+        [ValueProperty(ValuePropertyName = "VesselKills")]
+        private UEIntProperty VesselKill => RawSaveData.FindProperty<UEIntProperty>("STAT_VesselKill");
+
+        [ValueProperty(ValuePropertyName = "TotalKills")]
+        private UEIntProperty Kills => RawSaveData.FindProperty<UEIntProperty>("STAT_Kills");
+
+        public ReadOnlyCollection<MissionCompletion>? Missions {get;}
+
+        public override string FileName => "stat";
     }
 }

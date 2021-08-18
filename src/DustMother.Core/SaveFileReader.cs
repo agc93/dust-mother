@@ -66,6 +66,20 @@ namespace DustMother.Core
             return new FileInfo(Path.Combine(rootPath, $"{saveName}.sav"));
         }
 
+        public FileInfo WriteSave(WingmanSave save) {
+
+            var savePath = string.IsNullOrWhiteSpace(save?.FileName) && new FileInfo(save?.FileName).Exists
+                ? save switch {
+                    CampaignSave {} => GetSaveFile("Campaign"),
+                    ConquestSave {} => GetSaveFile("Conquest"),
+                    StatisticsSave {} => GetSaveFile("stat"),
+                    SettingsSave {} => GetSaveFile("savegame"),
+                    _ => throw new ArgumentException("Unknown save type")
+                }
+                : GetSaveFile(save.FileName);
+            _serializer.WriteToFile(save, savePath);
+            return savePath;
+        }
 
     }
 }

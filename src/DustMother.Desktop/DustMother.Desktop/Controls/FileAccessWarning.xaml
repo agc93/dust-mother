@@ -23,7 +23,7 @@
             <SymbolIcon Symbol="Important" Foreground="Red" />
         </Viewbox>
         <TextBlock Text="Unable to read save file!" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Margin="10" />
-        <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" TextWrapping="WrapWholeWords" Text="Dust Mother couldn't read your game save file! Generally, this means that we don't have permission to open the file." Height="auto" />
+        <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" TextWrapping="WrapWholeWords" Text="Dust Mother couldn't read your game save file! Generally, this means that you don't have any Project Wingman save files, or we don't have permission to open the file." Height="auto" />
         <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Height="auto" >
             <TextBlock TextWrapping="WrapWholeWords" Text="Turn on the 'File system' toggle under App permissions to allow this." MaxWidth="300" />
             <CommandBar Margin="5" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">

@@ -9,12 +9,6 @@
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Controls\EditFlyout.xaml" />
-    <None Remove="Controls\SaveChangesBar.xaml" />
-    <None Remove="IntroPage.xaml" />
-    <None Remove="Shell.xaml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.0.3" />
@@ -32,25 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Controls\SaveChangesBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="Controls\EditFlyout.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Shell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="IntroPage.xaml">
+    <Page Update="Controls\SaveChangesBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -1,0 +1,17 @@
+baseURL = "/"
+languageCode = "en-au"
+
+title = "Dust Mother"
+theme = "kraiklyn"
+
+pygmentsCodeFences = true
+pygmentsStyle = "monokailight"
+
+[params]
+sidebarColor = "orange"
+customCss = []
+
+[[menu.shortcuts]]
+name = "GitHub"
+url = "https://github.com/agc93/dust-mother"
+weight = 10

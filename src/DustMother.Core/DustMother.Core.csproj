@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
-    <PackageReference Include="UnSave" Version="0.0.0-preview.0.18" />
-    <PackageReference Include="UnSave.Extensions" Version="0.0.0-preview.0.18" />
+    <PackageReference Include="UnSave" Version="0.0.0-preview.0.20" />
+    <PackageReference Include="UnSave.Extensions" Version="0.0.0-preview.0.20" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>

@@ -38,6 +38,8 @@ namespace DustMother.Core
         public AudioSettings? AudioSettings { get; }
         public bool? SubtitlesOnTop { get; }
 
+        public override string FileName => "savegame";
+
     }
 
     public class AudioSettings

@@ -1,0 +1,42 @@
+﻿<UserControl
+    x:Class="DustMother.App.Controls.FileAccessWarning"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DustMother.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="400"
+    d:DesignWidth="600">
+
+    <Grid MaxHeight="600" MaxWidth="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Viewbox MaxHeight="100" MaxWidth="100" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" >
+            <SymbolIcon Symbol="Important" Foreground="Red" />
+        </Viewbox>
+        <TextBlock Text="Unable to read save file!" FontSize="20" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Margin="10" />
+        <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" TextWrapping="WrapWholeWords" Text="Dust Mother couldn't read your game save file! Generally, this means that you don't have any Project Wingman save files, or we don't have permission to open the file." Height="auto" />
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Height="auto" >
+            <TextBlock TextWrapping="WrapWholeWords" Text="Turn on the 'File system' toggle under App permissions to allow this." MaxWidth="300" />
+            <CommandBar Margin="5" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <AppBarButton Icon="Setting" Label="Open Settings" Click="AppBarButton_Click"/>
+
+            </CommandBar>
+        </StackPanel>
+        
+
+
+
+
+
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="DustMother.App.BackupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DustMother.App"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:th="using:DustMother.App.TypeHelpers"
+    xmlns:cv="using:DustMother.App.Converters"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <cv:HumanizedDateConverter x:Key="HumanizedDate" />
+        <Style x:Key="BackupBtn" TargetType="muxc:Button">
+            <Setter Property="Margin" Value="15" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <DataTemplate x:Key="AvailableBackupTemplate" x:DataType="th:BackupSummary" >
+            <muxc:RelativePanel HorizontalAlignment="Stretch">
+                <muxc:TextBlock Text="{x:Bind OriginalName}" muxc:RelativePanel.AlignLeftWithPanel="True" x:Name="itemFileName" Margin="10" />
+                <muxc:TextBlock Text="{x:Bind Created, Converter={StaticResource HumanizedDate}}" muxc:RelativePanel.AlignRightWithPanel="True" muxc:RelativePanel.RightOf="itemFileName" Margin="10" />
+            </muxc:RelativePanel>
+        </DataTemplate>
+        <DataTemplate x:Key="AvailableBackupStack" x:DataType="th:BackupSummary">
+            <muxc:StackPanel Orientation="Horizontal">
+                <muxc:TextBlock Text="{x:Bind OriginalName}" HorizontalAlignment="Left" />
+                <muxc:TextBlock Text="{x:Bind Created, Converter={StaticResource HumanizedDate}}" HorizontalAlignment="Right" />
+            </muxc:StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid MaxWidth="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <muxc:ProgressRing 
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            IsActive="{x:Bind ViewModel.IsRunning, Mode=OneWay}" 
+            Visibility="{x:Bind ViewModel.IsRunning, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Height="150"
+            Width="150"/>
+        <muxc:TextBlock Grid.Row="0" Grid.Column="1" Margin="10" FontWeight="Bold" Text="Use the options below to create back up copies of your current save files" />
+        <muxc:StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Visibility="{x:Bind ViewModel.IsRunning, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reverse}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <muxc:Button Content="All" Style="{StaticResource BackupBtn}" Click="Backup_All" />
+            <muxc:Button Content="Campaign" Style="{StaticResource BackupBtn}" Click="Backup" />
+            <muxc:Button Content="Conquest" Style="{StaticResource BackupBtn}" Click="Backup" />
+        </muxc:StackPanel>
+        <muxc:ListView MinWidth="300" Grid.Row="1" Grid.Column="1" SelectionMode="None" ItemsSource="{x:Bind ViewModel.AllBackups, Mode=OneWay}" ItemTemplate="{StaticResource AvailableBackupTemplate}" Header="Available Backups" Height="auto" Visibility="{x:Bind ViewModel.IsRunning, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reverse}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <!--<muxc:StackPanel Orientation="Vertical" Grid.Row="1" >
+            <muxc:TextBlock Text="Available Backups" FontSize="14" FontWeight="Bold"/>
+            
+        </muxc:StackPanel>-->
+        <muxc:Button HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BackupBtn}" Content="Open Save Folder" Click="OpenSaveFolder" />
+        
+    </Grid>
+</Page>

@@ -30,7 +30,7 @@ ProjectCollection GetProjects(ConvertableFilePath slnPath, string configuration)
     var testAssemblies = projects.Where(p => p.Name.Contains(".Tests")).Select(p => p.Path.GetDirectory() + "/bin/" + configuration + "/" + p.Name + ".dll");
     return new ProjectCollection {
         SolutionPath = slnPath,
-        SourceProjects = projects.Where(p => !p.Name.Contains(".Tests")),
+        SourceProjects = projects.Where(p => !p.Name.Contains(".Tests") && !p.Name.Contains(".Desktop")),
         TestProjects = projects.Where(p => p.Name.Contains(".Tests"))
     };
     

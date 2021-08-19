@@ -1,35 +1,39 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnSave;
+using UnSave.Extensions;
 using UnSave.Types;
 
 namespace DustMother.Core
 {
-    public class ConquestSave : WingmanSave
+    public partial class ConquestSave : WingmanSave
     {
         public ConquestSave(GvasSaveData rawSaveData) : base(rawSaveData)
         {
-            Credits = rawSaveData.FindProperty<UEIntProperty>(p => p.Name == "Cash")?.Value;
-            TotalScore = rawSaveData.FindProperty<UEIntProperty>("TotalScore")?.Value;
-            AlertLevel = rawSaveData.FindProperty<UEIntProperty>("AlertLevel")?.Value;
-            AlertLevelProgress = rawSaveData.FindProperty<UEFloatProperty>("AlertProgress")?.Value;
-            Prestige = rawSaveData.FindProperty<UEIntProperty>("PersistentCash")?.Value;
-            CordiumEngines = rawSaveData.FindProperty<UEIntProperty>("ThermalEngines")?.Value;
-            Regions = rawSaveData.Properties
-                .FindProperty<UEArrayProperty>("CQ_RegionSaves")
-                .Items
-                .Cast<UEStructProperty>()
-                .Select(sp => new ConquestRegion(sp))
-                .ToList()
-                .AsReadOnly();
-            Aircraft = rawSaveData.Properties
-                .FindProperty<UEArrayProperty>("CQ_AircraftUnlock")
-                .Items
-                .Cast<UEStructProperty>()
-                .Select(sp => new ConquestAircraftUnlock(sp))
-                .ToList()
-                .AsReadOnly();
+            var regionSaves = RawSaveData.FindProperty<UEArrayProperty>("CQ_RegionSaves");
+            if (regionSaves != null)
+            {
+                Regions = regionSaves
+                    .Items
+                    .Cast<UEStructProperty>()
+                    .Select(sp => new ConquestRegion(sp))
+                    .ToList()
+                    .AsReadOnly();
+            }
+
+            var aircraftUnlocks = RawSaveData.FindProperty<UEArrayProperty>("CQ_AircraftUnlock");
+            if (aircraftUnlocks != null)
+            {
+                Aircraft = aircraftUnlocks
+                    .Items
+                    .Cast<UEStructProperty>()
+                    .Select(sp => new ConquestAircraftUnlock(sp))
+                    .ToList()
+                    .AsReadOnly();
+            }
+            
             var playerData = rawSaveData.FindProperty<UEGenericStructProperty>("CQPlayerData");
             var alliesData = rawSaveData.FindProperty<UEGenericStructProperty>("AlliedCount");
             if (alliesData != null) {
@@ -60,13 +64,13 @@ namespace DustMother.Core
             CurrentLoadout = new Loadout {
                 AircraftName = playerData
                     .Properties
-                    .FindProperty<UEGenericStructProperty>(p => p.Name.StartsWith("CurrentAircraft"))
+                    .FindProperty<UEGenericStructProperty>(p => p.Name.StartsWith("CurrentAircraft"))?
                     .Properties
                     .FindProperty<UETextProperty>(p => p.Name.StartsWith("IndicatorName"))
                     .Value,
                 Weapons = playerData
                     .Properties
-                    .FindProperty<UEArrayProperty>(p => p.Name.StartsWith("WeaponStruct"))
+                    .FindProperty<UEArrayProperty>(p => p.Name.StartsWith("WeaponStruct"))?
                     .Items
                     .Cast<UEGenericStructProperty>()
                     .Select(gs => gs.Properties.FindProperty<UETextProperty>(p => p.Name.StartsWith("WeaponUIName_")).Value)
@@ -75,28 +79,65 @@ namespace DustMother.Core
             
         }
 
-        public int? Credits {get;}
-        public int? TotalScore {get;}
+        [ValueProperty(ValuePropertyName = "Credits")]
+        private UEIntProperty? Cash => RawSaveData.FindProperty<UEIntProperty>(p => p.Name == "Cash");
+
+        [ValueProperty(ValuePropertyName = "TotalScore")]
+        private UEIntProperty Score => RawSaveData.FindProperty<UEIntProperty>("TotalScore");
+
+        [ValueProperty(ValuePropertyName = "AlertLevel")]
+        private UEIntProperty RawAlertLevel => RawSaveData.FindProperty<UEIntProperty>("AlertLevel");
+
+        [ValueProperty(ValuePropertyName = "AlertLevelProgress")]
+        private UEFloatProperty AlertProgress => RawSaveData.FindProperty<UEFloatProperty>("AlertProgress");
+
+        [ValueProperty(ValuePropertyName = "Prestige")]
+        private UEIntProperty PersistentCash => RawSaveData.FindProperty<UEIntProperty>("PersistentCash");
+
+        //[ValueProperty(ValuePropertyName = "CordiumEngines")]
+        private UEIntProperty ThermalEngines => RawSaveData.FindProperty<UEIntProperty>("ThermalEngines");
+
+        public int? CordiumEngines
+        {
+            get { return ThermalEngines?.Value ?? 0; }
+            set
+            {
+                if (ThermalEngines?.Value is not null && value is not null)
+                {
+                    ThermalEngines.Value = (int)value;
+                }
+                else if (ThermalEngines?.Value is null && value is int intVal && intVal > 0)
+                {
+                    //value is good, but property isn't
+                    RawSaveData.Properties.Insert(RawSaveData.Properties.Count - 2, new UEIntProperty
+                    {
+                        Name = "ThermalEngines",
+                        Value = (int)value,
+                        ValueLength = 4
+                    });
+                }
+            }
+        }
+
+
         public Loadout CurrentLoadout {get;}
-        public ReadOnlyCollection<ConquestAircraftUnlock> Aircraft {get;}
-        public ReadOnlyCollection<ConquestRegion> Regions {get;}
+        public ReadOnlyCollection<ConquestAircraftUnlock>? Aircraft {get;}
+        public ReadOnlyCollection<ConquestRegion>? Regions {get;}
         // public ReadOnlyCollection<Modifier> Modifiers {get;}
-        public int? AlertLevel {get;set;}
-        public float? AlertLevelProgress {get;set;}
-        public int? Prestige {get;set;}
-        public int? CordiumEngines { get; set; }
-        public ReadOnlyDictionary<string, int> Allies {get;set;}
-        public Modifiers ModifiersList { get;  }
+        public ReadOnlyDictionary<string, int>? Allies {get;set;}
+        public Modifiers? ModifiersList { get;  }
+
+        public override string FileName => "Conquest";
 
     }
 
     public class Loadout {
-        public string AircraftName { get; internal set; }
-        public List<string> Weapons {get;internal set;}
+        public string? AircraftName { get; internal set; }
+        public List<string>? Weapons {get;internal set;}
     }
 
     public class Modifiers {
         public int? Difficulty { get; set; }
-        public float? AlertModifier { get; set; }
+        public float? AlertModifier { get; set; } = null;
     }
 }

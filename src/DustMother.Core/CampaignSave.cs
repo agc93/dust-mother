@@ -13,18 +13,24 @@ namespace DustMother.Core
         {
             // Credits = saveData.Properties.FindProperty<UEIntProperty>(p => p.Name == "CampaignCredits")?.Value;
             // CampaignActive = saveData.Properties.FindProperty<UEBoolProperty>(p => p.Name == "HasACampaign")?.Value;
-            CampaignCompleted = saveData.Properties.FindProperty<UEBoolProperty>(p => p.Name == "HasFinishedCampaignOnce")?.Value;
-            FurthestMission = saveData.Properties.FindProperty<UEStringProperty>(p => p.Name == "FurthestCampaignMission")?.Value;
-            CurrentCampaign = new CampaignDetails {
-                CurrentMission = saveData.Properties.FindProperty<UEStringProperty>(p => p.Name == "CurrentCampaignMission")?.Value,
-                Difficulty = saveData.Properties.FindProperty<UEIntProperty>(p => p.Name == "CurrentCampaignDifficulty")?.Value
-            };
-            UnlockedAircraft = saveData.Properties
-                .FindProperty<UEArrayProperty>(p => p.Name == "CD_AircraftUnlock")?
-                .Items<UEStructProperty>()
-                .Select(gs => new AircraftUnlock(gs))
-                .ToList()
-                .AsReadOnly();
+            //CampaignCompleted = saveData.Properties.FindProperty<UEBoolProperty>(p => p.Name == "HasFinishedCampaignOnce")?.Value;
+            // FurthestMission = saveData.Properties.FindProperty<UEStringProperty>(p => p.Name == "FurthestCampaignMission")?.Value;
+            CurrentCampaign = new CampaignDetails(saveData);
+            //CurrentCampaign = new CampaignDetails {
+            //    CurrentMission = saveData.Properties.FindProperty<UEStringProperty>(p => p.Name == "CurrentCampaignMission")?.Value,
+            //    Difficulty = saveData.Properties.FindProperty<UEIntProperty>(p => p.Name == "CurrentCampaignDifficulty")?.Value
+            //};
+            var aircraftUnlock = saveData.Properties
+                .FindProperty<UEArrayProperty>(p => p.Name == "CD_AircraftUnlock");
+            if (aircraftUnlock != null)
+            {
+                UnlockedAircraft = aircraftUnlock
+                    .Items<UEStructProperty>()
+                    .Select(gs => new AircraftUnlock(gs))
+                    .ToList()
+                    .AsReadOnly();
+            }
+            
         }
 
         [ValueProperty(ValuePropertyName = "Credits")]
@@ -37,11 +43,30 @@ namespace DustMother.Core
         [ValueProperty(ValuePropertyName = "FurthestMission")]
         private UEStringProperty FurthestCampaignMission => RawSaveData.Properties.FindProperty<UEStringProperty>(p => p.Name == "FurthestCampaignMission");
 
-        // public int? Credits {get; private set;}
-        // public bool? CampaignActive {get; private set;}
-        public bool? CampaignCompleted {get; private set;}
+        [ValueProperty(ValuePropertyName = "CampaignCompleted")]
+        private UEBoolProperty HasFinishedCampaignOnce => RawSaveData.FindProperty<UEBoolProperty>(p => p.Name == "HasFinishedCampaignOnce");
+
         public CampaignDetails? CurrentCampaign {get; private set;}
-        public ReadOnlyCollection<AircraftUnlock> UnlockedAircraft {get; private set;}
+        public ReadOnlyCollection<AircraftUnlock>? UnlockedAircraft {get; private set;}
+
+        private UEStringProperty CurrentCampaignMission => RawSaveData.Properties.FindProperty<UEStringProperty>(p => p.Name == "CurrentCampaignMission");
+
+        public override string FileName => "Campaign";
+
+        public CampaignSave UpdateCurrentCampaign(string currentMission, int? currentDifficulty = null)
+        {
+            if (this.CurrentCampaign != null)
+            {
+                //TODO: validate this
+                CurrentCampaign.CurrentMission = currentMission;
+
+                if (currentDifficulty != null)
+                {
+                    CurrentCampaign.Difficulty = currentDifficulty;
+                }
+            }
+            return this;
+        }
         
     }
 }

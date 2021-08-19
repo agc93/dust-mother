@@ -14,7 +14,7 @@ namespace DustMother.App
     {
         public SaveViewModel()
         {
-            _reader = new ProtectedSaveReader();
+            _reader = new DirectSaveReader();
         }
 
         protected SaveViewModel(DependencyObject self) : base(self)
@@ -32,7 +32,7 @@ namespace DustMother.App
             Loading = false;
         }
 
-        protected readonly ProtectedSaveReader _reader;
+        protected readonly ISaveReader _reader;
         private T _saveData;
         private bool saveLoaded;
         private bool? fileReadable;
@@ -53,7 +53,7 @@ namespace DustMother.App
             }
         }
 
-        protected async Task RefreshSaveAsync(Func<ProtectedSaveReader, Task<T>> readFunc, Func<T, bool> checkFunc = null)
+        protected async Task RefreshSaveAsync(Func<ISaveReader, Task<T>> readFunc, Func<T, bool> checkFunc = null)
         {
             checkFunc = checkFunc ?? (r => r != null);
             var result = await readFunc(_reader);

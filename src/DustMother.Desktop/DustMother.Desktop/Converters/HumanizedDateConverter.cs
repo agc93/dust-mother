@@ -20,7 +20,7 @@ namespace DustMother.App.Converters
             {
                 return dt.Humanize(parameter is string { }  && parameter.ToString().ToLower() == "utc" ,DateTime.Now);
             }
-            return value.ToString();
+            return value?.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

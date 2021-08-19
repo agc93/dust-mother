@@ -28,26 +28,4 @@ namespace DustMother.App.Converters
             return null;
         }
     }
-    class StringIntConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            if (value is string symbol)
-            {
-                bool? result = symbol switch
-                {
-                    "☑" => true,
-                    "🛒" => false,
-                    _ => null
-                };
-                return result;
-            }
-            return null;
-        }
-    }
 }

@@ -14,10 +14,11 @@ namespace DustMother.App.Converters
             if (value is int intVal)
             {
                 return System.Convert.ToDouble(intVal);
-            } else
+            } else if (value is not null)
             {
                 return double.TryParse(value.ToString(), out var dVal) ? dVal : -1;
             }
+            return -1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -25,10 +26,11 @@ namespace DustMother.App.Converters
             if (value is double dVal)
             {
                 return System.Convert.ToInt32(dVal);
-            } else
+            } else if (value is not null)
             {
                 return int.TryParse(value.ToString(), out var iVal) ? iVal : -1;
             }
+            return -1;
         }
     }
 }

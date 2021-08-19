@@ -9,7 +9,7 @@ using Windows.Storage.Streams;
 
 namespace DustMother.App
 {
-    public class ProtectedSaveReader
+    public class ProtectedSaveReader : ISaveReader
     {
         private readonly SaveSerializer _serializer;
 
@@ -29,11 +29,16 @@ namespace DustMother.App
             {
                 var file = await GetFile(GetSavePath("campaign"));
                 return file.IsAvailable;
-            } catch (UnauthorizedAccessException)
+            }
+            catch (UnauthorizedAccessException)
             {
                 return false;
-            } catch
+            }
+            catch
             {
+#if DEBUG
+                System.Console.WriteLine("Unhandled file access error");
+#endif
                 return null;
             }
         }
@@ -131,7 +136,8 @@ namespace DustMother.App
                 _serializer.Write(outStream.AsStreamForWrite(), save);
                 await outStream.FlushAsync();
                 outStream.Dispose();
-            } catch
+            }
+            catch
             {
                 //TODO: handle this
             }
@@ -144,7 +150,7 @@ namespace DustMother.App
             }
 
             return false;
-            
+
             //_serializer.WriteToFile(save, savePath);
             //return Task.CompletedTask;
         }

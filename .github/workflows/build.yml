@@ -3,8 +3,16 @@
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - "docs/**"
+      - ".github/workflows/docs.yml"
     tags:
       - 'v*.*.*'
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - "docs/**"
+      - ".github/workflows/docs.yml"
 
 jobs:
   build:

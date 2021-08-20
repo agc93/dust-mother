@@ -9,7 +9,7 @@ namespace DustMother.Core
             RawSaveData = rawSaveData;
         }
 
-        internal virtual protected GvasSaveData RawSaveData {get;}
+        internal virtual protected GvasSaveData RawSaveData { get; }
 
         public abstract string FileName {get;}
 

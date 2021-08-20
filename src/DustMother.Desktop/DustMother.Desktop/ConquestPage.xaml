@@ -10,10 +10,17 @@
     xmlns:c="using:DustMother.App.Controls"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:ip="using:MahApps.Metro.IconPacks"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:cv="using:DustMother.App.Converters"
     xmlns:dm="using:DustMother.Core"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Interactivity:Interaction.Behaviors>
+        <Core:EventTriggerBehavior EventName="Loaded">
+            <Core:InvokeCommandAction Command="{x:Bind Path=ViewModel.LoadSave}" />
+        </Core:EventTriggerBehavior>
+    </Interactivity:Interaction.Behaviors>
     <Page.Resources>
         <Style TargetType="ListViewItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -64,7 +71,7 @@
             <ColumnDefinition Width="*" /> <!--Left pane-->
             <ColumnDefinition Width="2*" /> <!--Right/details pane-->
         </Grid.ColumnDefinitions>
-        <muxc:InfoBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="auto" Severity="Informational" IsOpen="true" Title="Aircraft Names" Message="Note that the names shown below are the internal names used by the game and might not line up with what you see in-game!" />
+        <!--<c:InfoMessage Text="Note that the names shown above are the internal names used by the game and might not line up with what you see in-game!" />-->
         <Grid Grid.Row="1" Grid.Column="0" Style="{StaticResource DetailsGrid}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" /><!--title-->
@@ -102,7 +109,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Style="{StaticResource DetailsHeader}" Text="Unlocked Aircraft" Grid.Row="0" Grid.Column="0" />
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                <TextBlock Style="{StaticResource DetailsHeader}" Text="Unlocked Aircraft" />
+                <muxc:SymbolIcon Margin="4" Symbol="Help" muxc:ToolTipService.ToolTip="Note that the names below are the internal names used by the game and might not line up with what you see in-game!" />
+            </StackPanel>
+            
             <ListView
                 x:Name="CQAircraftList"
                 Grid.Row="1"

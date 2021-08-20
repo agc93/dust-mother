@@ -16,6 +16,11 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Interactivity:Interaction.Behaviors>
+        <Core:EventTriggerBehavior EventName="Loaded">
+            <Core:InvokeCommandAction Command="{x:Bind Path=ViewModel.LoadSave}" />
+        </Core:EventTriggerBehavior>
+    </Interactivity:Interaction.Behaviors>
     <Page.Resources>
         <Style TargetType="ListViewItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -81,7 +86,7 @@
             <ColumnDefinition Width="2*" />
             <!--Right/details pane-->
         </Grid.ColumnDefinitions>
-        <muxc:InfoBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="auto" Severity="Informational" IsOpen="true" Title="Internal Names" Message="Note that the squadron/allies shown below use the internal names used by the game and might not line up with what you see in-game!" />
+        <!--<c:InfoMessage Text="Note that the squadron/allies shown above use the internal names used by the game and might not line up with what you see in-game!" />-->
         <Grid Grid.Row="1" Grid.Column="0" Style="{StaticResource DetailsGrid}" x:Name="statusGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -106,7 +111,6 @@
                 <ColumnDefinition Width="auto" />
                 <!--edit-->
             </Grid.ColumnDefinitions>
-            <!--<TextBlock Text="Global Data" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource DetailsHeader}" />-->
             <TextBlock Text="Alert Level" Grid.Row="1" Grid.Column="0" Style="{StaticResource PropertyName}" />
             <TextBlock Text="{x:Bind ViewModel.AlertStatus, Mode=OneWay}" Grid.Row="1" d:Text="12 (15.05%)" Grid.Column="1" Style="{StaticResource PropertyValue}" />
             <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="4" Grid.Row="2" Grid.ColumnSpan="3"/>
@@ -123,14 +127,13 @@
             </StackPanel>
             <c:EditFlyout Grid.Row="3" Grid.Column="2">
                 <StackPanel Orientation="Horizontal">
-                    <muxc:TextBox MinWidth="200" Text="{x:Bind ViewModel.Credits, Mode=TwoWay, Converter={StaticResource IntString}}" />
+                    <muxc:NumberBox MinWidth="200" Value="{x:Bind ViewModel.Credits, Mode=TwoWay, Converter={StaticResource IntDoubleConverter}, ConverterParameter=0}" SmallChange="1000" SpinButtonPlacementMode="Compact" ValidationMode="InvalidInputOverwritten" />
                 </StackPanel>
             </c:EditFlyout>
             <c:EditFlyout Grid.Row="5" Grid.Column="2">
                 <StackPanel Orientation="Horizontal">
                     <muxc:TextBlock Text="Engines" />
-                    <muxc:NumberBox MinWidth="100" Value="{x:Bind ViewModel.CordiumEngines, Mode=TwoWay, Converter={StaticResource IntDoubleConverter}}" SmallChange="1" SpinButtonPlacementMode="Compact" ValidationMode="InvalidInputOverwritten" />
-                    <!--<muxc:TextBox MinWidth="100" Text="{x:Bind ViewModel.CordiumEngines, Mode=TwoWay, Converter={StaticResource IntString}}" />-->
+                    <muxc:NumberBox MinWidth="100" Value="{x:Bind ViewModel.CordiumEngines, Mode=TwoWay, Converter={StaticResource IntDoubleConverter}, ConverterParameter=0}" SmallChange="1" SpinButtonPlacementMode="Compact" ValidationMode="InvalidInputOverwritten" />
                 </StackPanel>
             </c:EditFlyout>
 

@@ -16,9 +16,12 @@ namespace DustMother.App.Converters
                 return System.Convert.ToDouble(intVal);
             } else if (value is not null)
             {
-                return double.TryParse(value.ToString(), out var dVal) ? dVal : -1;
+                return double.TryParse(value.ToString(), out var dVal) ? dVal : 0;
+            } else if (parameter?.ToString() is not null)
+            {
+                return double.TryParse(parameter.ToString(), out var dVal) ? dVal : 0;
             }
-            return -1;
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -30,7 +33,7 @@ namespace DustMother.App.Converters
             {
                 return int.TryParse(value.ToString(), out var iVal) ? iVal : -1;
             }
-            return -1;
+            return null;
         }
     }
 }

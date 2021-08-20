@@ -105,10 +105,17 @@ namespace DustMother.App
 
         public async Task<StatisticsSave> GetStatisticsDataAsync()
         {
-            var file = await GetFile(GetSavePath("stat"));
-            var data = _serializer.Read(file.OpenRead());
-            var stats = new StatisticsSave(data);
-            return stats;
+            try
+            {
+                var file = await GetFile(GetSavePath("stat"));
+                var data = _serializer.Read(file.OpenRead());
+                var stats = new StatisticsSave(data);
+                return stats;
+            } catch (Exception e)
+            {
+                File.WriteAllText(Path.Combine(Path.GetTempPath(), $"ex_{DateTime.UtcNow.Ticks}.txt"), string.Join(Environment.NewLine, new[] { e.ToString(), e.StackTrace?.ToString() }));
+                throw;
+            }
         }
 
         public async Task<bool> WriteSaveAsync(WingmanSave save)

@@ -17,7 +17,7 @@
                           TintOpacity=".1"
                           FallbackColor="{StaticResource SystemChromeMediumLowColor}" />
         </Grid.Resources>
-        <cc:FileAccessWarning MaxHeight="250" MaxWidth="800" Visibility="{x:Bind ViewModel.FileReadable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reverse}" />
+        <cc:FileAccessWarning MaxHeight="250" MaxWidth="600" Visibility="{x:Bind ViewModel.FileReadable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reverse}" />
         <muxc:NavigationView 
             x:Name="NavigationView" 
             Header="Project Wingman Save Data" 
@@ -40,13 +40,6 @@
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
             <muxc:NavigationView.FooterMenuItems>
-                <!--<muxc:NavigationViewItem Content="Backup" SelectsOnInvoked="False" >
-                    <muxc:NavigationViewItem.MenuItems>
-                        <muxc:NavigationViewItem Content="All" Tag="BackupPage:*"/>
-                        <muxc:NavigationViewItem Content="Conquest" Icon="Map" Tag="BackupPage:Conquest" />
-                        <muxc:NavigationViewItem Content="Campaign" Icon="Globe" Tag="BackupPage:Campaign" />
-                    </muxc:NavigationViewItem.MenuItems>
-                </muxc:NavigationViewItem>-->
                 <muxc:NavigationViewItem Content="Backup" Tag="BackupPage" Icon="SaveLocal" />
             </muxc:NavigationView.FooterMenuItems>
             <Frame x:Name="contentFrame">

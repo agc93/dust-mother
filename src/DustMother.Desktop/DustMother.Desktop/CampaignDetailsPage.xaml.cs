@@ -27,13 +27,7 @@ namespace DustMother.App
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await this.ViewModel?.Load();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.ViewModel.PendingChanges = true;
-            this.ViewModel.UpdateCredits(null);
+            //await this.ViewModel?.Load();
         }
 
 

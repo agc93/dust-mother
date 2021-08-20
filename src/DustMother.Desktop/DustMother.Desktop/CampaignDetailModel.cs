@@ -31,6 +31,7 @@ namespace DustMother.App
             }
             OnPropertyChanged(nameof(Credits));
             OnPropertyChanged(nameof(CampaignCompleted));
+            OnPropertyChanged(nameof(CurrentMission));
         }
 
         public override async Task Refresh()
@@ -38,22 +39,11 @@ namespace DustMother.App
             await RefreshSaveAsync(r => r.GetCampaignData(), c => c?.CampaignActive != null);
         }
 
-        public void UpdateCredits(int? value)
-        {
-            //if (value != null)
-            //{
-            //    SaveData.Credits = value;
-
-            //}
-            OnPropertyChanged("SaveData.Credits");
-            OnPropertyChanged("Credits");
-        }
-
         public int Credits
         {
             get => SaveData?.Credits ?? 0; set
             {
-                if (SaveData?.Credits != null)
+                if (SaveData?.Credits != null && SaveData.Credits != value)
                 {
                     SaveData.Credits = value;
                     PendingChanges = true;
@@ -66,7 +56,7 @@ namespace DustMother.App
         {
             get => SaveData?.CampaignCompleted ?? false; set
             {
-                if (SaveData?.CampaignCompleted != null)
+                if (SaveData?.CampaignCompleted != null && value != SaveData.CampaignCompleted)
                 {
                     SaveData.CampaignCompleted = value;
                     PendingChanges = true;
@@ -83,7 +73,7 @@ namespace DustMother.App
                 return currentMission == null ? null : int.TryParse(currentMission.Split('_').Last(), out var missionNum) ? missionNum : null;
             } set
             {
-                if (SaveData?.CurrentCampaign?.CurrentMission != null && value != null)
+                if (SaveData?.CurrentCampaign?.CurrentMission != null && value != null && $"campaign_{value}" != SaveData.CurrentCampaign.CurrentMission)
                 {
                     SaveData.UpdateCurrentCampaign($"campaign_{value}");
                     PendingChanges = true;

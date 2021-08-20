@@ -8,10 +8,12 @@
     <Platforms>x86;x64;arm64</Platforms>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
+    <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.0.3" />
+    <!-- <PackageReference Include="DustMother.Core" Version="0.0.0-preview.0.10" /> -->
     <PackageReference Include="Humanizer.Core" Version="2.11.10" />
     <PackageReference Include="MahApps.Metro.IconPacks.BoxIcons" Version="4.8.0" />
     <PackageReference Include="Microsoft.ProjectReunion" Version="0.8.2" />

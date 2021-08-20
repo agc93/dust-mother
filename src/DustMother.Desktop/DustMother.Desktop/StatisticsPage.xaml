@@ -8,10 +8,17 @@
     xmlns:pages="using:DustMother.App.Pages"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:c="using:DustMother.App.Controls"
     xmlns:th="using:DustMother.App.TypeHelpers"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Interactivity:Interaction.Behaviors>
+        <Core:EventTriggerBehavior EventName="Loaded">
+            <Core:InvokeCommandAction Command="{x:Bind Path=ViewModel.LoadSave}" />
+        </Core:EventTriggerBehavior>
+    </Interactivity:Interaction.Behaviors>
     <Page.Resources>
         <Style x:Key="StatisticHeader" TargetType="TextBlock" BasedOn="{StaticResource DetailsHeader}">
             <Setter Property="FontSize" Value="36" />
@@ -38,7 +45,12 @@
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <muxc:InfoBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="auto" Severity="Informational" IsOpen="true" Title="Kill Counts" Message="Note that on account of how vessel kills are counted, total kills include just air and ground kills. Vessel kills are already factored in!" FontSize="30" />
+        <!--<TeachingTip Title="Kill Counts" Subtitle="Note that on account of how vessel kills are counted, total kills include just air and ground kills. Vessel kills are already factored in!" IsOpen="True">
+            <TeachingTip.IconSource>
+                <SymbolIconSource Symbol="Important" />
+            </TeachingTip.IconSource>
+        </TeachingTip>-->
+        <!--<muxc:InfoBar IsOpen="true" Title="Kill Counts" Message="Note that on account of how vessel kills are counted, total kills include just air and ground kills. Vessel kills are already factored in!" />-->
         <Grid Grid.Column="0" Grid.Row="1" x:Name="statsGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -51,18 +63,10 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <!--<Grid Style="{StaticResource DetailsGrid}" x:Name="airGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock Text="Air Kills" Style="{StaticResource StatisticHeader}" Grid.Row="0" HorizontalAlignment="Center" />
-                <TextBlock Text="{x:Bind ViewModel.SaveData.AircraftKills, Mode=OneWay}" d:Text="1841" FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
-            </Grid>-->
-            <c:StatisticCard Header="Air Kills" Value="{x:Bind ViewModel.SaveData.AircraftKills, Mode=OneWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-            <c:StatisticCard Header="Ground Kills" Value="{x:Bind ViewModel.SaveData.GroundTargetKills, Mode=OneWay}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" />
-            <c:StatisticCard Header="Total Kills" Value="{x:Bind ViewModel.SaveData.TotalKills, Mode=OneWay}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" />
-            <c:StatisticCard Header="Vessel Kills" Value="{x:Bind ViewModel.SaveData.VesselKills, Mode=OneWay}" Grid.Row="2" Grid.Column="3" />
+            <c:StatisticCard Header="Air Kills" Value="{x:Bind ViewModel.SaveData.AircraftKills, Mode=OneWay, FallbackValue=0}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+            <c:StatisticCard Header="Ground Kills" Value="{x:Bind ViewModel.SaveData.GroundTargetKills, Mode=OneWay, FallbackValue=0}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" />
+            <c:StatisticCard Header="Total Kills" Value="{x:Bind ViewModel.SaveData.TotalKills, Mode=OneWay, FallbackValue=0}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Tooltip="Note that on account of how vessel kills are counted, total kills include just air and ground kills" />
+            <c:StatisticCard Header="Vessel Kills" Value="{x:Bind ViewModel.SaveData.VesselKills, Mode=OneWay, FallbackValue=0}" Grid.Row="2" Grid.Column="3" />
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid Visibility="{x:Bind ViewModel.SaveData.Missions, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}" BorderBrush="Gray" Style="{StaticResource DetailsGrid}" Grid.Row="1" Grid.Column="1">
@@ -85,7 +89,6 @@
                 VerticalAlignment="Stretch"
                 SelectionMode="None"
                 HorizontalAlignment="Stretch"/>
-                <!--<TextBlock Style="{StaticResource DetailsHeader}" Text="Available Aircraft" Grid.Row="2" Grid.Column="0" />-->
             </Grid>
         </Grid>
     </Grid>

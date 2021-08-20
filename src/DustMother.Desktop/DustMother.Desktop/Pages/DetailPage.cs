@@ -21,7 +21,8 @@ namespace DustMother.App.Pages
             
         }
         public TModel ViewModel { get; set; } = new TModel();
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+
+        protected async void OnNavigatedRefresh()
         {
             await this.ViewModel?.CheckFileAccessAsync();
             await this.ViewModel?.Refresh();

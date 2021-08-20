@@ -12,9 +12,15 @@ namespace DustMother.App
 {
     public abstract class SaveViewModel<T> : BindableBase where T : WingmanSave
     {
+        internal DelegateCommand LoadSave;
+
         public SaveViewModel()
         {
             _reader = new DirectSaveReader();
+            LoadSave = new DelegateCommand(async () =>
+            {
+                await Load();
+            });
         }
 
         protected SaveViewModel(DependencyObject self) : base(self)

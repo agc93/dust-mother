@@ -8,12 +8,16 @@
     xmlns:cvt="using:DustMother.App.Converters"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
         <cvt:ScaleFactorConverter x:Key="ScaleFactorConverter" />
         <Style x:Key="StatisticHeader" TargetType="TextBlock" BasedOn="{StaticResource DetailsHeader}">
+        </Style>
+        <Style x:Key="TooltipStyle" TargetType="muxc:SymbolIcon">
+            <Setter Property="Margin" Value="4" />
         </Style>
     </UserControl.Resources>
 
@@ -30,8 +34,13 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
         <TextBlock TextWrapping="WrapWholeWords" Text="{x:Bind Header, Mode=OneWay}" d:Text="Kills" Style="{StaticResource StatisticHeader}" FontSize="{x:Bind ScaleFactor, Converter={StaticResource ScaleFactorConverter}, ConverterParameter=36}" Grid.Row="0" HorizontalAlignment="Center" />
+        <muxc:SymbolIcon Style="{StaticResource TooltipStyle}" Grid.Column="1" Symbol="Help" Visibility="{x:Bind Tooltip, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}" muxc:ToolTipService.ToolTip="{x:Bind Tooltip, Mode=OneWay}" />
         <TextBlock Text="{x:Bind Value, Mode=OneWay}" Visibility="{x:Bind Value, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}" d:Text="1349" FontSize="{x:Bind ScaleFactor, Converter={StaticResource ScaleFactorConverter}, ConverterParameter=80}" d:FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
-        <TextBlock Text="???" Visibility="{x:Bind Value, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}, ConverterParameter=Reverse}" FontSize="{x:Bind ScaleFactor, Converter={StaticResource ScaleFactorConverter}, ConverterParameter=80}" d:FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
+        <TextBlock Grid.ColumnSpan="2" Text="???" Visibility="{x:Bind Value, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}, ConverterParameter=Reverse}" FontSize="{x:Bind ScaleFactor, Converter={StaticResource ScaleFactorConverter}, ConverterParameter=80}" d:FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
     </Grid>
 </UserControl>

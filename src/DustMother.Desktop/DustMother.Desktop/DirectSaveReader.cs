@@ -150,6 +150,7 @@ namespace DustMother.App
             {
                 var targetFile = await GetFile(savePath);
                 tmpFile.CopyTo(targetFile.FullName, true);
+                tmpFile.Delete();
                 return true;
             }
 

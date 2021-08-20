@@ -73,9 +73,9 @@ namespace DustMother.App
                 return currentMission == null ? null : int.TryParse(currentMission.Split('_').Last(), out var missionNum) ? missionNum : null;
             } set
             {
-                if (SaveData?.CurrentCampaign?.CurrentMission != null && value != null && $"campaign_{value}" != SaveData.CurrentCampaign.CurrentMission)
+                if (SaveData?.CurrentCampaign?.CurrentMission != null && value is int intVal && $"campaign_{intVal:D2}" != SaveData.CurrentCampaign.CurrentMission)
                 {
-                    SaveData.UpdateCurrentCampaign($"campaign_{value}");
+                    SaveData.UpdateCurrentCampaign($"campaign_{intVal:D2}");
                     PendingChanges = true;
                     OnPropertyChanged();
                 }

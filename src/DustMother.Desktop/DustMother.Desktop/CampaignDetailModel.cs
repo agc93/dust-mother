@@ -32,6 +32,7 @@ namespace DustMother.App
             OnPropertyChanged(nameof(Credits));
             OnPropertyChanged(nameof(CampaignCompleted));
             OnPropertyChanged(nameof(CurrentMission));
+            OnPropertyChanged(nameof(Difficulty));
         }
 
         public override async Task Refresh()
@@ -76,6 +77,25 @@ namespace DustMother.App
                 if (SaveData?.CurrentCampaign?.CurrentMission != null && value is int intVal && $"campaign_{intVal:D2}" != SaveData.CurrentCampaign.CurrentMission)
                 {
                     SaveData.UpdateCurrentCampaign($"campaign_{intVal:D2}");
+                    PendingChanges = true;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string? Difficulty
+        {
+            get
+            {
+                var currentMission = SaveData?.CurrentCampaign?.Difficulty ?? null;
+                return currentMission == null ? null : PropertyValueConverter.Difficulty.FromValue(currentMission);
+            }
+            set
+            {
+                var dValue = PropertyValueConverter.Difficulty.ToValue(value);
+                if (SaveData?.CurrentCampaign?.Difficulty != null && dValue != null && dValue != SaveData.CurrentCampaign.Difficulty)
+                {
+                    SaveData.CurrentCampaign.Difficulty = dValue;
                     PendingChanges = true;
                     OnPropertyChanged();
                 }

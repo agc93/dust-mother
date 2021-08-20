@@ -15,7 +15,7 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemControlAcrylicElementBrush}">
     <Interactivity:Interaction.Behaviors>
         <Core:EventTriggerBehavior EventName="Loaded">
             <Core:InvokeCommandAction Command="{x:Bind Path=ViewModel.LoadSave}" />
@@ -112,7 +112,8 @@
                 <!--edit-->
             </Grid.ColumnDefinitions>
             <TextBlock Text="Alert Level" Grid.Row="1" Grid.Column="0" Style="{StaticResource PropertyName}" />
-            <TextBlock Text="{x:Bind ViewModel.AlertStatus, Mode=OneWay}" Grid.Row="1" d:Text="12 (15.05%)" Grid.Column="1" Style="{StaticResource PropertyValue}" />
+            <TextBlock Text="{x:Bind local:ConquestModel.ToStatusText(ViewModel.AlertLevel, ViewModel.SaveData.AlertLevelProgress), Mode=OneWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource PropertyValue}" />
+            <!--<TextBlock Text="{x:Bind ViewModel.AlertStatus, Mode=OneWay}" Grid.Row="1" d:Text="12 (15.05%)" Grid.Column="1" Style="{StaticResource PropertyValue}" />-->
             <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="4" Grid.Row="2" Grid.ColumnSpan="3"/>
             <TextBlock Text="Credits" Grid.Row="3" Grid.Column="0" Style="{StaticResource PropertyName}" />
             <TextBlock Text="{x:Bind ViewModel.Credits, Mode=OneWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource PropertyValue}" d:Text="11000" />
@@ -125,16 +126,18 @@
                 <TextBlock Text="{x:Bind ViewModel.SaveData.ModifiersList.AlertModifier, Mode=OneWay}" Style="{StaticResource PropertyValue}"  />
                 <TextBlock Text="x" Style="{StaticResource PropertyValue}" Visibility="{x:Bind ViewModel.SaveData.ModifiersList.AlertModifier,Mode=OneWay,Converter={StaticResource NotNullToVisibilityConverter}}" />
             </StackPanel>
-            <c:EditFlyout Grid.Row="3" Grid.Column="2">
-                <StackPanel Orientation="Horizontal">
-                    <muxc:NumberBox MinWidth="200" Value="{x:Bind ViewModel.Credits, Mode=TwoWay, Converter={StaticResource IntDoubleConverter}, ConverterParameter=0}" SmallChange="1000" SpinButtonPlacementMode="Compact" ValidationMode="InvalidInputOverwritten" />
+            <c:EditFlyout Grid.Row="1" Grid.Column="2" Visibility="{x:Bind ViewModel.AlertLevel, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}">
+                <StackPanel Orientation="Vertical" Style="{StaticResource EditFlyoutStack}">
+                    <muxc:TextBlock Text="Current Alert Level" />
+                    <muxc:Slider Minimum="1" Maximum="30" StepFrequency="1" Value="{x:Bind ViewModel.AlertLevel,Mode=TwoWay, Converter={StaticResource IntDoubleConverter}, ConverterParameter=0}" />
+                    <muxc:TextBlock Style="{StaticResource EditHelpText}" Text="This won't change/reset your progress with an alert level!" />
                 </StackPanel>
             </c:EditFlyout>
+            <c:EditFlyout Grid.Row="3" Grid.Column="2">
+                <c:NumberInput Value="{x:Bind ViewModel.Credits, Mode=TwoWay}" LargeNumber="True" />
+            </c:EditFlyout>
             <c:EditFlyout Grid.Row="5" Grid.Column="2">
-                <StackPanel Orientation="Horizontal">
-                    <muxc:TextBlock Text="Engines" />
-                    <muxc:NumberBox MinWidth="100" Value="{x:Bind ViewModel.CordiumEngines, Mode=TwoWay, Converter={StaticResource IntDoubleConverter}, ConverterParameter=0}" SmallChange="1" SpinButtonPlacementMode="Compact" ValidationMode="InvalidInputOverwritten" />
-                </StackPanel>
+                <c:NumberInput Value="{x:Bind ViewModel.CordiumEngines, Mode=TwoWay}" Label="Engines" />
             </c:EditFlyout>
 
         </Grid>

@@ -14,8 +14,7 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:cv="using:DustMother.App.Converters"
     xmlns:dm="using:DustMother.Core"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
     <Interactivity:Interaction.Behaviors>
         <Core:EventTriggerBehavior EventName="Loaded">
             <Core:InvokeCommandAction Command="{x:Bind Path=ViewModel.LoadSave}" />
@@ -90,16 +89,9 @@
             <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="4" Grid.Row="2" Grid.ColumnSpan="2"/>
             <TextBlock Text="Run Active" Foreground="Green" Style="{StaticResource PropertyName}" Visibility="{x:Bind ViewModel.SaveData.AlertLevel, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}" Grid.Row="3" Grid.ColumnSpan="2" />
             <TextBlock Text="No Run Currently Active" Foreground="DarkRed" Style="{StaticResource PropertyName}" Visibility="{x:Bind ViewModel.SaveData.AlertLevel, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}, ConverterParameter=Reverse}" Grid.Row="3" Grid.ColumnSpan="2" />
-            <muxc:Button Grid.Row="1" Grid.Column="2" Margin="0" Padding="2">
-                <muxc:SymbolIcon Symbol="Edit" />
-                <muxc:Button.Flyout>
-                    <Flyout>
-                        <StackPanel Orientation="Horizontal">
-                            <muxc:TextBox MinWidth="200" Text="{x:Bind ViewModel.Prestige, Mode=TwoWay, Converter={StaticResource IntString}}" />
-                        </StackPanel>
-                    </Flyout>
-                </muxc:Button.Flyout>
-            </muxc:Button>
+            <c:EditFlyout Grid.Row="1" Grid.Column="2">
+                <c:NumberInput Value="{x:Bind ViewModel.Prestige, Mode=TwoWay}" Label="Total Prestige" LargeNumber="True" />
+            </c:EditFlyout>
         </Grid>
         <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource DetailsGrid}">
             <Grid.RowDefinitions>

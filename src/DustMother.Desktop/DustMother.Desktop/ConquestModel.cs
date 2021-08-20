@@ -56,8 +56,21 @@ namespace DustMother.App
             OnPropertyChanged(nameof(Prestige));
             OnPropertyChanged(nameof(CordiumEngines));
             OnPropertyChanged(nameof(Credits));
+            OnPropertyChanged(nameof(AlertLevel));
             
 
+        }
+
+        public static string ToStatusText(int? alertLevel, float? alertLevelProgress)
+        {
+            if (alertLevel != null && alertLevelProgress != null)
+            {
+                return $"{alertLevel} ({Math.Round((decimal)(alertLevelProgress * 100), 1)}%)";
+            }
+            else
+            {
+                return "None";
+            }
         }
 
         public override async Task Refresh()
@@ -98,6 +111,20 @@ namespace DustMother.App
                 if (SaveData?.Credits != null && value != null && value != SaveData.Credits)
                 {
                     SaveData.Credits = value;
+                    PendingChanges = true;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int? AlertLevel
+        {
+            get => SaveData?.AlertLevel ?? null;
+            set
+            {
+                if (SaveData?.AlertLevel != null && value is int intVal && intVal != SaveData.AlertLevel)
+                {
+                    SaveData.AlertLevel = intVal;
                     PendingChanges = true;
                     OnPropertyChanged();
                 }

@@ -12,8 +12,7 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:c="using:DustMother.App.Controls"
     xmlns:th="using:DustMother.App.TypeHelpers"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
     <Interactivity:Interaction.Behaviors>
         <Core:EventTriggerBehavior EventName="Loaded">
             <Core:InvokeCommandAction Command="{x:Bind Path=ViewModel.LoadSave}" />
@@ -28,6 +27,7 @@
         </Style>
         <DataTemplate x:Key="MissionListViewTemplate" x:DataType="th:MissionRecord">
             <controls:Expander VerticalAlignment="Top" Margin="0" Padding="0"
+                               Background="{ThemeResource SystemControlAcrylicElementBrush}"
                            Header="{x:Bind MissionName }"
                            HorizontalContentAlignment="Stretch"
                            IsExpanded="False"

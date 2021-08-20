@@ -18,6 +18,7 @@
             <cv:BooleanToTextConverter x:Key="BooleanToText" />
             <cv:AircraftNameConverter x:Key="AircraftName" />
             <cv:IntStringConverter x:Key="IntString" />
+            <cv:IntDoubleConverter x:Key="IntDoubleConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

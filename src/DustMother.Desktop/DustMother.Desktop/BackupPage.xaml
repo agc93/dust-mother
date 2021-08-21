@@ -11,7 +11,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
-        <cv:HumanizedDateConverter x:Key="HumanizedDate" />
+        <cv:HumanizedOffsetConverter x:Key="HumanizedDate" />
         <Style x:Key="BackupBtn" TargetType="muxc:Button">
             <Setter Property="Margin" Value="15" />
             <Setter Property="Padding" Value="10" />
@@ -22,7 +22,7 @@
         <DataTemplate x:Key="AvailableBackupTemplate" x:DataType="th:BackupSummary" >
             <muxc:RelativePanel HorizontalAlignment="Stretch">
                 <muxc:TextBlock Text="{x:Bind OriginalName}" muxc:RelativePanel.AlignLeftWithPanel="True" x:Name="itemFileName" Margin="10" />
-                <muxc:TextBlock Text="{x:Bind Created, Converter={StaticResource HumanizedDate}}" muxc:RelativePanel.AlignRightWithPanel="True" muxc:RelativePanel.RightOf="itemFileName" Margin="10" />
+                <muxc:TextBlock Text="{x:Bind Created, Converter={StaticResource HumanizedDate}, ConverterParameter=(created [])}" muxc:RelativePanel.AlignRightWithPanel="True" muxc:RelativePanel.RightOf="itemFileName" Margin="10" />
             </muxc:RelativePanel>
         </DataTemplate>
         <DataTemplate x:Key="AvailableBackupStack" x:DataType="th:BackupSummary">

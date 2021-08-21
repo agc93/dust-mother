@@ -1,4 +1,5 @@
 ﻿using DustMother.App.TypeHelpers;
+using Humanizer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -80,5 +81,9 @@ namespace DustMother.App
         }
 
         public bool IsRunning { get => isRunning; set { isRunning = value; OnPropertyChanged(); } }
+
+        public static string GetTimeLabel(BackupSummary bs) {
+            return $"{bs.OriginalName} (created {bs.Created.Humanize(DateTimeOffset.Now)})";
+        }
     }
 }

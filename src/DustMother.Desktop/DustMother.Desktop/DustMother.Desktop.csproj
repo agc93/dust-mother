@@ -10,6 +10,7 @@
     <UseWinUI>true</UseWinUI>
     <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
   </PropertyGroup>
+  
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.0.3" />
@@ -25,14 +26,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DustMother.Core\DustMother.Core.csproj" />
+    <ProjectReference Include="..\..\DustMother.Generators\DustMother.Generators.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Page Update="Controls\EditFlyout.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Controls\SaveChangesBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  
 </Project>

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -46,5 +47,17 @@ namespace DustMother.App.Controls
                 SaveCurrent(this, EventArgs.Empty);
             }
         }
+
+
+
+        public ICommand SaveCommand
+        {
+            get { return (ICommand)GetValue(SaveCommandProperty); }
+            set { SetValue(SaveCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SaveCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SaveCommandProperty =
+            DependencyProperty.Register("SaveCommand", typeof(ICommand), typeof(SaveChangesBar), new PropertyMetadata(null));
     }
 }

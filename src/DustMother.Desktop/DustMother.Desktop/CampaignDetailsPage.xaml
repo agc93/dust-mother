@@ -74,10 +74,7 @@
                 <c:NumberInput Label="Current Credits" Value="{x:Bind ViewModel.Credits, Mode=TwoWay}" LargeNumber="True" />
             </c:EditFlyout>
             <c:EditFlyout Grid.Row="3" Grid.Column="2" Visibility="{x:Bind ViewModel.CampaignCompleted, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}">
-                <StackPanel Orientation="Vertical" Style="{StaticResource EditFlyoutStack}">
-                    <muxc:TextBlock MinWidth="200" Text="Campaign Completed" Margin="4" />
-                    <muxc:CheckBox IsChecked="{x:Bind ViewModel.CampaignCompleted, Mode=TwoWay}" HorizontalAlignment="Center" />
-                </StackPanel>
+                <c:ToggleInput Label="Campaign Completed" Value="{x:Bind ViewModel.CampaignCompleted, Mode=TwoWay}" />
             </c:EditFlyout>
         </Grid>
         <Grid Visibility="{x:Bind ViewModel.SaveData.CampaignActive, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}" BorderBrush="Gray" Style="{StaticResource DetailsGrid}" Grid.Row="2" Grid.Column="0">
@@ -140,11 +137,7 @@
                 SelectionMode="None"
                 HorizontalAlignment="Stretch"/>
         </Grid>
-        <c:SaveChangesBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" PendingChanges="{x:Bind ViewModel.PendingChanges, Mode=OneWay}" SaveCurrent="SaveChangesBar_SaveCurrent" />
-        <!--<muxc:RelativePanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{x:Bind ViewModel.PendingChanges, Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}" Padding="5">
-            <muxc:TextBlock Text="Pending Changes" RelativePanel.LeftOf="SaveChanges" VerticalAlignment="Center" Style="{StaticResource ChangesWarning}" />
-            <muxc:Button muxc:RelativePanel.AlignRightWithPanel="True" Content="Save" Style="{StaticResource SaveChangesButton}" Click="" x:Name="SaveChanges" />
-        </muxc:RelativePanel>-->
+        <c:SaveChangesBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" PendingChanges="{x:Bind ViewModel.PendingChanges, Mode=OneWay}" SaveCommand="{x:Bind ViewModel.SaveCurrent}" />
 
     </Grid>
 </Page>

@@ -13,6 +13,7 @@ namespace DustMother.App
     public abstract class SaveViewModel<T> : BindableBase where T : WingmanSave
     {
         internal DelegateCommand LoadSave;
+        internal DelegateCommand SaveCurrent;
 
         public SaveViewModel()
         {
@@ -20,6 +21,10 @@ namespace DustMother.App
             LoadSave = new DelegateCommand(async () =>
             {
                 await Load();
+            });
+            SaveCurrent = new DelegateCommand(async () =>
+            {
+                await WriteSave();
             });
         }
 

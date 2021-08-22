@@ -4,10 +4,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using DustMother.Generators;
 
 namespace DustMother.App
 {
-    public class ConquestModel : SaveViewModel<ConquestSave>
+    [ViewModelProperty("CordiumEngines", PendingChanges = nameof(PendingChanges))]
+    public partial class ConquestModel : SaveViewModel<ConquestSave>
     {
         private string alertStatus = string.Empty;
 
@@ -85,19 +87,6 @@ namespace DustMother.App
                 if (SaveData?.Prestige!= null && value != null && value != SaveData.Prestige)
                 {
                     SaveData.Prestige = value;
-                    PendingChanges = true;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public int? CordiumEngines
-        {
-            get => SaveData?.CordiumEngines ?? null; set
-            {
-                if (SaveData?.CordiumEngines != null && value != null && value != SaveData.CordiumEngines)
-                {
-                    SaveData.CordiumEngines = value;
                     PendingChanges = true;
                     OnPropertyChanged();
                 }

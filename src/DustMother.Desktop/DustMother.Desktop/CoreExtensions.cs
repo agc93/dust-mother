@@ -21,5 +21,14 @@ namespace DustMother.App
         {
             return navigationView.MenuItems.Cast<MUXC.NavigationViewItem>().FirstOrDefault(t => (string)t.Tag == contentFrame.Content.GetType().Name);
         }
+
+        public static object GetDefault(this Type type)
+        {
+            if (type.IsValueType)
+            {
+                return Activator.CreateInstance(type);
+            }
+            return null;
+        }
     }
 }

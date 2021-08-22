@@ -38,6 +38,7 @@
                         <muxc:NavigationViewItem Content="Current" Icon="Map" Tag="ConquestDetailsPage" />
                     </muxc:NavigationViewItem.MenuItems>
                 </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Settings" Icon="Setting" Tag="GameSettingsPage" />
             </muxc:NavigationView.MenuItems>
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem Content="Backup" Tag="BackupPage" Icon="SaveLocal" />

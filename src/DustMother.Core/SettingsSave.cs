@@ -1,20 +1,15 @@
 using UnSave;
+using UnSave.Extensions;
 using UnSave.Types;
 
 namespace DustMother.Core
 {
-    public class SettingsSave : WingmanSave
+    public partial class SettingsSave : WingmanSave
     {
         public SettingsSave(GvasSaveData rawSaveData) : base(rawSaveData)
         {
-            ResolutionScale = rawSaveData.FindProperty<UEFloatProperty>("ResolutionScale")?.Value;
-            FrameLimit = rawSaveData.FindProperty<UEIntProperty>("FrameLimit")?.Value;
-            CloudResolution = rawSaveData.FindProperty<UEIntProperty>("CloudResolution")?.Value;
-            ToggleAoA = rawSaveData.FindProperty<UEBoolProperty>("AoAToggle")?.Value;
             TelemetryFirstPass = rawSaveData.FindProperty<UEBoolProperty>("TelemetryFirstPass")?.Value;
             TelemetryAccepted = rawSaveData.FindProperty<UEBoolProperty>("TelemetryAccepted")?.Value;
-            CockpitFOV = rawSaveData.FindProperty<UEFloatProperty>("CockpitFOV")?.Value;
-            ThirdPersonFOV = rawSaveData.FindProperty<UEFloatProperty>("ThirdPersonFOV")?.Value;
             AudioSettings = new AudioSettings
             {
                 MasterLevel = rawSaveData.FindProperty<UEFloatProperty>("MasterAudio")?.Value,
@@ -22,19 +17,41 @@ namespace DustMother.Core
                 EffectsLevel = rawSaveData.FindProperty<UEFloatProperty>("SFXAudio")?.Value
             };
             SubtitlesOnTop = rawSaveData.FindProperty<UEBoolProperty>("SubtitleTop")?.Value;
-            InterfaceScale = rawSaveData.FindProperty<UEFloatProperty>("UI_Scale")?.Value;
 
         }
 
-        public float? ResolutionScale {get;}
-        public float? InterfaceScale { get; }
-        public int? FrameLimit {get;}
-        public int? CloudResolution {get;}
-        public bool? ToggleAoA {get;}
+        
+
+        //public bool? ToggleAoA {get;}
         public bool? TelemetryFirstPass {get;}
         public bool? TelemetryAccepted { get; }
-        public float? CockpitFOV { get; }
-        public float? ThirdPersonFOV { get; }
+        //public float? CockpitFOV { get; }
+        //public float? ThirdPersonFOV { get; }
+
+        [ValueProperty(ValuePropertyName = "CockpitFOV", CreateProperty = "CockpitFOV")]
+        private UEFloatProperty CockpitFOVProperty => RawSaveData.FindProperty<UEFloatProperty>("CockpitFOV");
+
+        [ValueProperty(ValuePropertyName = "ThirdPersonFOV", CreateProperty = "ThirdPersonFOV")]
+        private UEFloatProperty ThirdPersonFOVProperty => RawSaveData.FindProperty<UEFloatProperty>("ThirdPersonFOV");
+
+        [ValueProperty(ValuePropertyName = "ResolutionScale", CreateProperty = "ResolutionScale")]
+        private UEFloatProperty ResolutionScaleProperty => RawSaveData.FindProperty<UEFloatProperty>("ResolutionScale");
+
+        [ValueProperty(ValuePropertyName = "FrameLimit", CreateProperty = "FrameLimit")]
+        private UEIntProperty FrameLimitProperty => RawSaveData.FindProperty<UEIntProperty>("FrameLimit");
+
+        [ValueProperty(ValuePropertyName = "CloudResolution", CreateProperty = "CloudResolution")]
+        private UEIntProperty CloudResolutionProperty => RawSaveData.FindProperty<UEIntProperty>("CloudResolution");
+
+        [ValueProperty(ValuePropertyName = "InterfaceScale", CreateProperty = "UI_Scale")]
+        private UEFloatProperty InterfaceScaleProperty => RawSaveData.FindProperty<UEFloatProperty>("UI_Scale");
+
+        [ValueProperty(ValuePropertyName = "MetricHUDUnits", CreateProperty = "HUDUnits")]
+        private UEBoolProperty HUDUnits => RawSaveData.FindProperty<UEBoolProperty>("HUDUnits");
+
+        [ValueProperty(ValuePropertyName = "ToggleAoA", CreateProperty = "AoAToggle")]
+        private UEBoolProperty AoAToggle => RawSaveData.FindProperty<UEBoolProperty>("AoAToggle");
+
         public AudioSettings? AudioSettings { get; }
         public bool? SubtitlesOnTop { get; }
 

@@ -6,10 +6,26 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="SaveChangesButton" TargetType="muxc:Button">
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Foreground" Value="Orange" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+    </UserControl.Resources>
 
     <muxc:RelativePanel  Grid.ColumnSpan="2" Visibility="{x:Bind PendingChanges, Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}" Padding="5">
         <muxc:TextBlock Text="Pending Changes" RelativePanel.LeftOf="SaveChanges" VerticalAlignment="Center" Style="{StaticResource ChangesWarning}" />
-        <muxc:Button muxc:RelativePanel.AlignRightWithPanel="True" Content="Save" Style="{StaticResource SaveChangesButton}" Click="SaveChanges_Click" x:Name="SaveChanges" />
+        <muxc:Button muxc:RelativePanel.AlignRightWithPanel="True" Content="Save" Style="{StaticResource SaveChangesButton}" x:Name="SaveChanges" Click="SaveChanges_Click" >
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="Click">
+                    <Core:InvokeCommandAction Command="{x:Bind Path=SaveCommand}" />
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+        </muxc:Button>
     </muxc:RelativePanel>
 </UserControl>

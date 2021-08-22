@@ -14,7 +14,7 @@ namespace DustMother.App
     /// Implementation of <see cref="INotifyPropertyChanged"/> to simplify models.
     /// </summary>
     [Windows.Foundation.Metadata.WebHostHidden]
-    public abstract class BindableBase : INotifyBase, INotifyPropertyChanged
+    public abstract class BindableBase : INotifyBase
     {
         public BindableBase()
         {

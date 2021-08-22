@@ -13,7 +13,7 @@ Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "DustMother.Desktop (Package
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DustMother.Desktop", "DustMother.Desktop\DustMother.Desktop\DustMother.Desktop.csproj", "{B5580CE8-9EA8-4A05-B3AA-118BA2C8D1E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DustMother.Generators", "DustMother.Generators\DustMother.Generators.csproj", "{1045FB12-8F0D-4A55-8754-DCDF9DCECF1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DustMother.Generators", "DustMother.Generators\DustMother.Generators.csproj", "{1045FB12-8F0D-4A55-8754-DCDF9DCECF1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

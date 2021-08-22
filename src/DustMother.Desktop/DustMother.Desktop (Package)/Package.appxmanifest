@@ -9,7 +9,7 @@
   <Identity
     Name="62542agc93.DustMother"
     Publisher="CN=04C25981-D295-4ACE-B8F2-B980C8BDD633"
-    Version="0.0.6.0" />
+    Version="0.0.7.0" />
 
   <Properties>
     <DisplayName>Dust Mother</DisplayName>

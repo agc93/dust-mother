@@ -8,7 +8,7 @@ using DustMother.Generators;
 
 namespace DustMother.App
 {
-    [ViewModelProperty("CordiumEngines", PendingChanges = nameof(PendingChanges))]
+    //[ViewModelProperty("CordiumEngines", PendingChanges = nameof(PendingChanges))]
     public partial class ConquestModel : SaveViewModel<ConquestSave>
     {
         private string alertStatus = string.Empty;
@@ -114,6 +114,20 @@ namespace DustMother.App
                 if (SaveData?.AlertLevel != null && value is int intVal && intVal != SaveData.AlertLevel)
                 {
                     SaveData.AlertLevel = intVal;
+                    PendingChanges = true;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int? CordiumEngines
+        {
+            get => SaveData?.CordiumEngines ?? null;
+            set
+            {
+                if (SaveData?.CordiumEngines != null && value != null && value != SaveData.CordiumEngines)
+                {
+                    SaveData.CordiumEngines = value;
                     PendingChanges = true;
                     OnPropertyChanged();
                 }

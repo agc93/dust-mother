@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace DustMother.App
 {
-    [ViewModelProperty(nameof(SettingsSave.CockpitFOV), PendingChanges = nameof(PendingChanges))]
-    [ViewModelProperty(nameof(SettingsSave.ThirdPersonFOV), PendingChanges = nameof(PendingChanges))]
-    [ViewModelProperty(nameof(SettingsSave.MetricHUDUnits), PendingChanges = nameof(PendingChanges))]
-    [ViewModelProperty(nameof(SettingsSave.ToggleAoA), PendingChanges = nameof(PendingChanges))]
-    //[ViewModelProperty(nameof(SettingsSave.ResolutionScale), PendingChanges = nameof(PendingChanges))]
+    //[ViewModelProperty(nameof(SettingsSave.CockpitFOV), PendingChanges = nameof(PendingChanges))]
+    //[ViewModelProperty(nameof(SettingsSave.ThirdPersonFOV), PendingChanges = nameof(PendingChanges))]
+    //[ViewModelProperty(nameof(SettingsSave.MetricHUDUnits), PendingChanges = nameof(PendingChanges))]
+    //[ViewModelProperty(nameof(SettingsSave.ToggleAoA), PendingChanges = nameof(PendingChanges))]
     public partial class GameSettingsViewModel : SaveViewModel<SettingsSave>
     {
         public GameSettingsViewModel()
@@ -58,6 +57,59 @@ namespace DustMother.App
                 {
                     var rawValue = flValue / 100;
                     SaveData.InterfaceScale = rawValue;
+                    PendingChanges = true;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public float? CockpitFOV
+        {
+            get => SaveData?.CockpitFOV ?? null;
+            set
+            {
+                if (SaveData?.CockpitFOV != null && value != null && value != SaveData.CockpitFOV)
+                {
+                    SaveData.CockpitFOV = value;
+                    PendingChanges = true;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public float? ThirdPersonFOV
+        {
+            get => SaveData?.ThirdPersonFOV ?? null;
+            set
+            {
+                if (SaveData?.ThirdPersonFOV != null && value != null && value != SaveData.ThirdPersonFOV)
+                {
+                    SaveData.ThirdPersonFOV = value;
+                    PendingChanges = true;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool? MetricHUDUnits
+        {
+            get => SaveData?.MetricHUDUnits ?? null;
+            set
+            {
+                if (SaveData?.MetricHUDUnits != null && value != null && value != SaveData.MetricHUDUnits)
+                {
+                    SaveData.MetricHUDUnits = value;
+                    PendingChanges = true;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool? ToggleAoA
+        {
+            get => SaveData?.ToggleAoA ?? null;
+            set
+            {
+                if (SaveData?.ToggleAoA != null && value != null && value != SaveData.ToggleAoA)
+                {
+                    SaveData.ToggleAoA = value;
                     PendingChanges = true;
                     OnPropertyChanged();
                 }

@@ -42,7 +42,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TeachingTip Subtitle="Note that the names shown above are the internal names used by the game and might not line up with what you see in-game!" IsOpen="True">
+        <TeachingTip Visibility="{x:Bind ViewModel.SaveData.Credits, Mode=OneWay, Converter={StaticResource NotNullToVisibilityConverter}}" Subtitle="Note that the names shown above are the internal names used by the game and might not line up with what you see in-game!" IsOpen="True">
             <TeachingTip.IconSource>
                 <SymbolIconSource Symbol="Important" />
             </TeachingTip.IconSource>

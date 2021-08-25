@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DustMother.Core\DustMother.Core.csproj" />
+    <ProjectReference Include="..\..\DustMother.Generators\DustMother.Generators.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
   <PropertyGroup>

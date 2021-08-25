@@ -77,7 +77,10 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Style="{StaticResource StatisticHeader}" Text="Missions" Grid.Row="0" Grid.Column="0" />
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                    <TextBlock Style="{StaticResource StatisticHeader}" Text="Missions" />
+                    <muxc:SymbolIcon Margin="4" Symbol="Help" muxc:ToolTipService.ToolTip="Please note that this won't always line up with the in-game mission numbers!" />
+                </StackPanel>
                 <ListView
                 x:Name="MissionList"
                 Grid.Row="1"

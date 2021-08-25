@@ -23,10 +23,6 @@
     <Style x:Key="EditFlyoutStack" TargetType="StackPanel" >
         <Setter Property="MaxWidth" Value="250" />
     </Style>
-    <Style x:Key="ChangesWarning" TargetType="muxc:TextBlock">
-        <Setter Property="FontSize" Value="24" />
-        <Setter Property="Margin" Value="4" />
-    </Style>
     <Style x:Key="EditHelpText" TargetType="muxc:TextBlock">
         <Setter Property="FontStyle" Value="Italic" />
         <!--<Setter Property="Foreground" Value="{ThemeResource SystemColorCaptionTextColor}" />-->

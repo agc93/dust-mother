@@ -148,10 +148,16 @@ namespace DustMother.App
             tmpFile.Refresh();
             if (tmpFile.Length > 0)
             {
-                var targetFile = await GetFile(savePath);
-                tmpFile.CopyTo(targetFile.FullName, true);
-                tmpFile.Delete();
-                return true;
+                try
+                {
+                    var targetFile = await GetFile(savePath);
+                    tmpFile.CopyTo(targetFile.FullName, true);
+                    tmpFile.Delete();
+                    return true;
+                } catch
+                {
+                    //TODO: handle this
+                }
             }
 
             return false;

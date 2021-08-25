@@ -16,10 +16,17 @@
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontSize" Value="20" />
         </Style>
+        <Style x:Key="ChangesWarning" TargetType="muxc:TextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
     </UserControl.Resources>
 
-    <muxc:RelativePanel  Grid.ColumnSpan="2" Visibility="{x:Bind PendingChanges, Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}" Padding="5">
-        <muxc:TextBlock Text="Pending Changes" RelativePanel.LeftOf="SaveChanges" VerticalAlignment="Center" Style="{StaticResource ChangesWarning}" />
+    <muxc:RelativePanel  Grid.ColumnSpan="2" Visibility="{x:Bind PendingChanges, Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}" Padding="5" VerticalAlignment="Stretch">
+        <muxc:TextBlock Style="{StaticResource EditHelpText}" Text="Changes to your save file will only take effect the next time the game is started! Do NOT edit the save file while the game is running!" VerticalAlignment="Center" muxc:RelativePanel.AlignLeftWithPanel="True" x:Name="LoadWarning" Margin="5,0,5,0" RelativePanel.AlignVerticalCenterWithPanel="True" TextWrapping="WrapWholeWords" />
+        <!--<muxc:TextBlock Style="{StaticResource EditHelpText}" Text="Changes to your save file will only take effect the next time the game is started!" VerticalAlignment="Center" MaxWidth="250" muxc:RelativePanel.AlignLeftWithPanel="True" x:Name="LoadWarning" Margin="5,0,5,0" RelativePanel.AlignVerticalCenterWithPanel="True" />
+        <muxc:TextBlock Style="{StaticResource EditHelpText}" Text="Do NOT edit the save file while the game is running!" VerticalAlignment="Center" muxc:RelativePanel.LeftOf="PendingChangesLabel" Margin="5,0,5,0" RelativePanel.AlignVerticalCenterWithPanel="True" />-->
+        <muxc:TextBlock Text="Pending Changes" RelativePanel.LeftOf="SaveChanges" VerticalAlignment="Center" Style="{StaticResource ChangesWarning}" x:Name="PendingChangesLabel" RelativePanel.AlignVerticalCenterWithPanel="True" />
         <muxc:Button muxc:RelativePanel.AlignRightWithPanel="True" Content="Save" Style="{StaticResource SaveChangesButton}" x:Name="SaveChanges" Click="SaveChanges_Click" >
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="Click">

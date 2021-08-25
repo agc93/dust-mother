@@ -66,7 +66,7 @@ namespace DustMother.App
 
         protected async Task RefreshSaveAsync(Func<ISaveReader, Task<T>> readFunc, Func<T, bool> checkFunc = null)
         {
-            checkFunc = checkFunc ?? (r => r != null);
+            checkFunc ??= (r => r != null);
             var result = await readFunc(_reader);
             SaveData = result;
             OnSaveLoad?.Invoke(this, result);
@@ -87,8 +87,8 @@ namespace DustMother.App
 
         public virtual async Task WriteSave()
         {
-            await _reader.WriteSaveAsync(SaveData);
-            PendingChanges = false;
+            var result = await _reader.WriteSaveAsync(SaveData);
+            PendingChanges = !result;
         }
     }
 }

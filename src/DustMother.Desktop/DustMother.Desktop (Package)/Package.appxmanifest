@@ -55,6 +55,9 @@
   </Applications>
 
   <Capabilities>
+    <!-- DM supports partial trust by swapping these two capabilities and updating the packaging reference -->
+    <!-- also requires changing to the other ISaveReader implementation -->
+    <!-- This will not be enabled until MS provides some indication of it being a supported scenario -->
     <rescap:Capability Name="runFullTrust" />
     <!--<rescap:Capability Name="broadFileSystemAccess" />--> 
   </Capabilities>

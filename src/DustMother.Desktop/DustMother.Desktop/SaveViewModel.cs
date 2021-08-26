@@ -17,6 +17,7 @@ namespace DustMother.App
 
         public SaveViewModel()
         {
+            //_reader = new ProtectedSaveReader();
             _reader = new DirectSaveReader();
             LoadSave = new DelegateCommand(async () =>
             {

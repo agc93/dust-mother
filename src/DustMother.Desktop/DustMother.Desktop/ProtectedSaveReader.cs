@@ -25,6 +25,7 @@ namespace DustMother.App
 
         public async Task<bool?> CheckFileAccessAsync()
         {
+            //var trust = AppDomain.CurrentDomain.PermissionSet.IsUnrestricted();
             try
             {
                 var file = await GetFile(GetSavePath("campaign"));
@@ -106,11 +107,26 @@ namespace DustMother.App
             }
             else
             {
-                //var localAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                var localAppData = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "AppData", "Local");
+                var localAppData = GetLocalAppDataPath();
                 rootPath = Path.Combine(localAppData, "ProjectWingman", "Saved", "SaveGames");
             }
             return rootPath;
+        }
+
+        private static string GetLocalAppDataPath()
+        {
+            var localAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            if (!string.IsNullOrWhiteSpace(localAppData))
+            {
+                return localAppData;
+            }
+            var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            if (!string.IsNullOrWhiteSpace(userProfile))
+            {
+                return Path.Combine(userProfile, "AppData", "Local");
+            }
+            var roamingAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            return Path.Combine(System.IO.Path.GetDirectoryName(roamingAppData), "Local");
         }
 
         public virtual async Task<bool> WriteSaveAsync(WingmanSave save)

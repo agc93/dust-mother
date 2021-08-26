@@ -3,6 +3,7 @@
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
@@ -10,6 +11,9 @@
     Name="62542agc93.DustMother"
     Publisher="CN=04C25981-D295-4ACE-B8F2-B980C8BDD633"
     Version="0.1.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="04C25981-D295-4ACE-B8F2-B980C8BDD633" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
 
   <Properties>
     <DisplayName>Dust Mother</DisplayName>
@@ -52,5 +56,6 @@
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    <!--<rescap:Capability Name="broadFileSystemAccess" />--> 
   </Capabilities>
 </Package>

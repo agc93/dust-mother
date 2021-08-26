@@ -7,7 +7,7 @@ namespace DustMother.Generators
     {
         public ViewModelPropertyAttribute(string propertyName)
         {
-            
+
         }
 
         public string? SavePropertyName { get; set; }

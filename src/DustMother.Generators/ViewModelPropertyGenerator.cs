@@ -1,4 +1,4 @@
-﻿using DustMother.Core;
+﻿//using DustMother.Core;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
@@ -50,7 +50,7 @@ namespace DustMother.Generators
             var ns = classSymbol.ContainingNamespace.ToString();
             var className = classSymbol.Name;
             var builder = new ExperimentalClassBuilder(ns, className) { UseTypeName = false };
-            var saveType = classSymbol.BaseType.TypeArguments.FirstOrDefault(ta => ta.BaseType != null && ta.BaseType.Name.Contains(nameof(WingmanSave)));
+            var saveType = classSymbol.BaseType.TypeArguments.FirstOrDefault(ta => ta.BaseType != null && ta.BaseType.Name.Contains("WingmanSave"));
             var classProps = classSymbol.GetProperties(saveType.Name);
             var saveDataProp = classProps.FirstOrDefault();
             if (saveDataProp != null)

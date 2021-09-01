@@ -15,3 +15,6 @@ customCss = []
 name = "GitHub"
 url = "https://github.com/agc93/dust-mother"
 weight = 10
+
+[markup.goldmark.renderer]
+unsafe= true

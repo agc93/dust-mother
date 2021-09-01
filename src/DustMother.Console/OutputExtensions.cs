@@ -39,26 +39,28 @@ namespace DustMother
             infoTable.AddColumn(new TableColumn("Value").RightAligned());
             infoTable.AddRow("Credits", save.Credits.ToString());
             infoTable.AddRow("Campaign", save.CampaignCompleted == true ? "Completed" : "Not Completed");
-            infoTable.AddRow("Furthest Mission", save.FurthestMission);
-            infoTable.AddRow("Current Mission", save.CurrentCampaign?.CurrentMission);
+            infoTable.AddRow("Furthest Mission", save.FurthestMission ?? "Unknown");
+            infoTable.AddRow("Current Mission", save.CurrentCampaign?.CurrentMission ?? "None");
             infoTable.AddRow("Current Difficulty", Difficulties[save.CurrentCampaign.Difficulty ?? 0]);
-
-            var aircraftTable = new Table();
-            aircraftTable.AddColumn(new TableColumn("Name").LeftAligned());
-            aircraftTable.AddColumn(new TableColumn("Unlocked").Centered());
-            aircraftTable.AddColumn(new TableColumn("Purchased").Centered());
-            foreach (var aircraft in save.UnlockedAircraft.Where(a => a.Available == true))
-            {
-                aircraftTable.AddRow(
-                    new Markup($"[bold]{aircraft.Id}[/]"), 
-                    new Markup(aircraft.Unlocked.GetValueOrDefault(false) ? "[blue]Yes[/]" : "[orange]No[/]"), 
-                    new Markup(aircraft.Purchased.GetValueOrDefault(false) ? "[green]Yes[/]" : "[orangered]No[/]")
-                    );
-            }
             console.Render(new Rule("Campaign Data") { Alignment = Justify.Left });
             console.Render(infoTable);
-            console.Render(new Rule("Aircraft") { Alignment = Justify.Left });
-            console.Render(aircraftTable);
+            if (save.UnlockedAircraft != null && save.UnlockedAircraft.Any())
+            {
+                var aircraftTable = new Table();
+                aircraftTable.AddColumn(new TableColumn("Name").LeftAligned());
+                aircraftTable.AddColumn(new TableColumn("Unlocked").Centered());
+                aircraftTable.AddColumn(new TableColumn("Purchased").Centered());
+                foreach (var aircraft in save.UnlockedAircraft.Where(a => a.Available == true))
+                {
+                    aircraftTable.AddRow(
+                        new Markup($"[bold]{aircraft.Id}[/]"),
+                        new Markup(aircraft.Unlocked.GetValueOrDefault(false) ? "[blue]Yes[/]" : "[orange]No[/]"),
+                        new Markup(aircraft.Purchased.GetValueOrDefault(false) ? "[green]Yes[/]" : "[orangered]No[/]")
+                        );
+                }
+                console.Render(new Rule("Aircraft") { Alignment = Justify.Left });
+                console.Render(aircraftTable);
+            }
         }
 
         public static string ToMark(this bool? value, bool useSymbol = true) {

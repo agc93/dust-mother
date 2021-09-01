@@ -12,6 +12,6 @@ namespace DustMother
     {
         [CommandOption("-o|--output <mod>")]
         [Description("Specify the output format for parsed data.")]
-        public OutputMode OutputMode {get;set;} = OutputMode.None;
+        public OutputMode OutputMode {get;set;} = OutputMode.Text;
     }
 }

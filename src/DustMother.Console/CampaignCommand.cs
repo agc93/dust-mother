@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using DustMother.Core;
@@ -20,10 +19,10 @@ namespace DustMother
         }
         public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
         {
-            var fi = new FileInfo(settings.CampaignFilePath);
+            var fi = new FileInfo(settings.SaveFilePath);
             var isInteractive = settings.OutputMode == OutputMode.None;
             if (!fi.Exists || fi.Extension != ".sav" ) {
-                throw new FileNotFoundException($"Provided campaign file path '{settings.CampaignFilePath}' does not exist!");
+                throw new FileNotFoundException($"Provided campaign file path '{settings.SaveFilePath}' does not exist!");
             }
             try {
                 var data = _serializer.ReadFile(fi);
@@ -41,10 +40,11 @@ namespace DustMother
             
         }
 
-        public class Settings : OutputSettings {
-            [CommandArgument(0, "[filePath]")]
-            [Description("Path to a campaign save file to read")]
-            public string CampaignFilePath {get;set;}
+        public class Settings : SaveCommandSettings
+        {
+            public Settings() : base("Campaign")
+            {
+            }
         }
     }
 }
